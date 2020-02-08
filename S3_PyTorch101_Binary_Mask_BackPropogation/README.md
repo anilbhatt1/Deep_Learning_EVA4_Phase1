@@ -12,6 +12,9 @@ This notebook has detailed explanation with examples on below items
 9) Tensor multiplication using torch.mm()
 10)Taking sum of elements inside tensor using torch.sum()
 11)Difference between BGR and RGB while displaying. Converting BGR to RGB
+
 12)Using expand_as 
+
 13)How binary masking is applied on images and plotting its effect visually
+
 14)How backpropagation works with the help of a simple neural network
