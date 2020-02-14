@@ -11,6 +11,7 @@ Applied batch normalization to 16 channels. As it is MNIST dataset, may not have
 Applied 2x2, stride 2 maxpooling to reduce the channel size.
 
 Applied dropout of 0.08 for regularization.
+
 Block 2
 -------
 
