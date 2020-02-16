@@ -1,3 +1,5 @@
+File Name : EVA4_P1_S4_0_9946_Regularization_Batch_Norm_1x1_Dropout_Pytorch_MNIST.ipynb
+---------------------------------------------------------------------------------------
 Model Architecture details
 --------------------------
 Block 1
