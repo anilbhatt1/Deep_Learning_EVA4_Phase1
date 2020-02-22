@@ -1,4 +1,5 @@
-Approach Followed:
+Approach Followed: (Refer S5_Writeup.doc for Target, Results and Analysis Details)
+
 1.	Basic Skeleton
 
 2.	Reduce Parameters + Add Batch-norm
