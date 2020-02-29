@@ -1,5 +1,5 @@
-**EVA4_S6_Regularization.ipynb
-
+EVA4_S6_Regularization.ipynb
+----------------------------
 - This notebook is having code base and results of Squeeze-Expand CNN model for MNIST dataset.
 - Objective is to plot and compare validation accuracies and test loss and thereby determine which regularization method - L1, L2, both combined or not having both - gives better results in MNIST.
 - Model is having 9680 parameters and was ran 4 times for 40 epochs (1) w/o L1 or L2 (2) With L1 (3) With L2 (4) With L1 & L2.
