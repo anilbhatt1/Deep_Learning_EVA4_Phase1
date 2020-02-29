@@ -29,4 +29,4 @@ EVA4_S6_With_L1_Regularization.ipynb
 - Chosen L1 = 0.001 as it seems to stable and giving accuracies and test losses than other values.
 - L1 = 0.0005 is also giving good results. But test losses seems to be slightly less stable compared to L1 = 0.001
 - Plots for accuracies and losses are as below.
-![L1 Only-Accuracy & Losses]
+![L1 Only-Accuracy & Losses](https://github.com/anilbhatt1/Deep_Learning_EVA4_Phase1/blob/master/S6-L1_L2Regularization/Val%20Accuracy_Losses%20for%20diff%20L1%20values.png)
