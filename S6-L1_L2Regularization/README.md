@@ -2,7 +2,7 @@
 - Objective is to plot and compare validation accuracies and test loss and thereby determine which regularization method - with L1, with L2, both combined or not having both - gives better results in MNIST and for which values.
 - Model is having 9680 parameters and was ran 4 times for 40 epochs (1) w/o L1 or L2 (2) With L1 (3) With L2 (4) With L1 & L2.
 - Also 25 misclassified images are plotted for 'with L1' and 'with L2' scenarios along with its actual labels & wrongly predicted labels.
-- First time when model ran, Values chosen for (L1, L2) for the 4 scenarios are (0,0),(0.001,0),(0,0.0005),(0.001,0.0005)].
+- First time model was ran for the 4 scenarios, with values for (L1, L2) as (0,0),(0.001,0),(0,0.0005),(0.001,0.0005) respectively.
   - Code base is [Code with L1 Regularization_V1](EVA4_S6_Regularization_V1.ipynb)
   - Results are as follows:
       - [L1 = 0, L2 = 0] : Maxium test accuracy: 99.47, Achieved in epoch: 25, Max Train accuracy : 99.49, Achieved in epoch : 37
@@ -11,7 +11,15 @@
       - [L1 = 0.001, L2 = 0.0005] : Maxium test accuracy: 99.30, Achieved in epoch: 12, Max Train accuracy : 99.12, Achieved in epoch : 39
   - Validation accuracy & Test loss plots are as below:
   ![VaL_Acc&Test_Loss](https://github.com/anilbhatt1/Deep_Learning_EVA4_Phase1/blob/master/S6-L1_L2Regularization/Val_Test%20Accuracies.png)
-- Second time when model ran, Values chosen for (L1, L2) for the 4 scenarios are (0,0),(0.0005,0),(0,0.0001),(0.0005,0.0001)].
+- Second time model was ran for the 4 scenarios, with values for (L1, L2) as (0,0),(0.0005,0),(0,0.0001),(0.0005,0.0001)].
+  - Code base is [Code with L1 Regularization_V2](EVA4_S6_Regularization_V2.ipynb)
+  - Results are as follows:
+      - [L1 = 0, L2 = 0] :Maxium test accuracy: 99.47, Achieved in epoch: 38, Max Train accuracy : 99.50, Achieved in epoch : 33
+      - [L1 = 0.0005, L2 = 0] : Maxium test accuracy: 99.43, Achieved in epoch: 39, Max Train accuracy : 99.48, Achieved in epoch : 38
+      - [L1 = 0, L2 = 0.0001] : Maxium test accuracy: 99.43, Achieved in epoch: 27, Max Train accuracy : 99.39, Achieved in epoch : 38
+      - [L1 = 0.0005, L2 = 0.0001] : Maxium test accuracy: 99.42, Achieved in epoch: 33, Max Train accuracy : 99.39, Achieved in epoch : 27
+  - Validation accuracy & Test loss plots are as below:
+  ![VaL_Acc&Test_Loss](https://github.com/anilbhatt1/Deep_Learning_EVA4_Phase1/blob/master/S6-L1_L2Regularization/Val_Test%20Accuracies_Final%20L1_L2%20Model_V2.png)
 - Values for L1(0.001) and L2(0.0005) were arrived based on experiments ran seperately with L1 alone & with L2 alone. Please refer the sections below - EVA4_S6_With_L1_Regularization.ipynb & EVA4_S6_With_L2_Regularization.ipynb regarding these findings.
 - Conclusions are as follows:
   - Using L1 alone is the best choice for MNIST data set as it is giving a stable smoother curve with higher accuracy and lower test loss.
