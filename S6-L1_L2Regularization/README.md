@@ -9,6 +9,8 @@ EVA4_S6_Regularization.ipynb
 - Plots are as below. Conclusions are as follows:
   - Using L1 alone is the best choice for MNIST data set as it is giving a stable smoother curve with higher accuracy and lower test loss.
   - Adding L2 is not helping as curve is rocky and accuracies/test losses are not good compared to 'with L1' and 'w/o L1 or L2' models.
-  - Even without regularization, model is performing weel. But this could be because MNIST is a straight-forward dataset. Hence regularization won't do much improvement because kernel values easily gets generalized and there are no much challenges for kernels to fall into specialization trap.
+  - Even without regularization, model is performing well. This could be because MNIST is a straight-forward dataset. Hence regularization won't do much improvement because kernel values easily gets generalized and there are not much challenges for kernels to fall into specialization trap. 
+  - However incase of other images (eg: human emotion), outliers could be more and features in images will be much different. Inorder to cater to these images, some of the kernels will get into specialization mode while training. This could lead to overfitting i.e. good training accuracy but not that great train accuracy. In such cases, L1 regularization will help.
+  - Hence, a moderate value of L1 regularization & no use of L2 regularization is most desirable.
   
 ![VaL_Acc&Test_Loss](https://github.com/anilbhatt1/Deep_Learning_EVA4_Phase1/blob/master/S6-L1_L2Regularization/Val_Test%20Accuracies.png)
