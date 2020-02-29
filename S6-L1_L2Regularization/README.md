@@ -1,5 +1,5 @@
-** Analysis & work jointly done by Anilkumar N Bhatt and Maruthi Srinivas **
-----------------------------------------------------------------------------
+Analysis & work jointly done by Anilkumar N Bhatt and Maruthi Srinivas
+----------------------------------------------------------------------
 
 - This repository is having code bases and results of Squeeze-Expand CNN model for MNIST dataset.
 - Objective is to plot and compare validation accuracies and test loss and thereby determine which regularization method - **with L1**, **with L2**, **both combined** or **not having any of L1 or L2** - gives better results in MNIST and for which all values.
