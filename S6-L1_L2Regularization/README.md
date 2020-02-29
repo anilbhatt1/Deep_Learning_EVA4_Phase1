@@ -17,6 +17,9 @@ EVA4_S6_Regularization.ipynb
 
  - Misclassified images while using L1 = 0.001 alone
 
-!
+![L1 =0.001 Wrong 25](https://github.com/anilbhatt1/Deep_Learning_EVA4_Phase1/blob/master/S6-L1_L2Regularization/25%20Misclassied%20Images_With%20L1%3D0.001.png)
 
  - Misclassified images while using L2 = 0.0005 alone
+ 
+ ![L2 =0.0005 Wrong 25](https://github.com/anilbhatt1/Deep_Learning_EVA4_Phase1/blob/master/S6-L1_L2Regularization/25%20Misclassied%20Images_With%20L2%3D0.0005.png)
+ 
