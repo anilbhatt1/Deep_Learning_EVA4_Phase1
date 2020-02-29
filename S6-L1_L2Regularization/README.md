@@ -6,7 +6,7 @@ EVA4_S6_Regularization.ipynb
 - Also 25 mis-classified images are plotted for each of these scenarios along with its actual labels & wrongly predicted labels.
 - Values chosen for (L1, L2) for the 4 scenarios are (0,0),(0.001,0),(0,0.0005),(0.001,0.0005)].
 - Values for L1(0.001) and L2(0.0005) were arrived based on experiments ran seperately with L1 alone & with L2 alone. Please refer the notebook sections below regarding both these.
-- Plots are as below. Conclusions are as follows:
+- Validation accuracy & Test loss plots are as below. Conclusions are as follows:
   - Using L1 alone is the best choice for MNIST data set as it is giving a stable smoother curve with higher accuracy and lower test loss.
   - Adding L2 is not helping as curve is rocky and accuracies/test losses are not good compared to 'with L1' and 'w/o L1 or L2' models.
   - Even without regularization, model is performing well. This could be because MNIST is a straight-forward dataset. Hence regularization won't do much improvement because kernel values easily gets generalized and there are not much challenges for kernels to fall into specialization trap. 
