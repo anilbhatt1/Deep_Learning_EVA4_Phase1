@@ -5,10 +5,10 @@
 - First time when model ran, Values chosen for (L1, L2) for the 4 scenarios are (0,0),(0.001,0),(0,0.0005),(0.001,0.0005)].
   - Code base is [Code with L1 Regularization_V1](EVA4_S6_Regularization_V1.ipynb)
   - Results are as follows:
-      -[L1 = 0, L2 = 0] : Maxium test accuracy: 99.47, Achieved in epoch: 25, Max Train accuracy : 99.49, Achieved in epoch : 37
-      -[L1 = 0.001, L2 = 0] : Maxium test accuracy: 99.45, Achieved in epoch: 28, Max Train accuracy : 99.46, Achieved in epoch : 38
-      -[L1 = 0, L2 = 0.0005] : Maxium test accuracy: 99.47, Achieved in epoch: 19, Max Train accuracy : 99.13, Achieved in epoch : 35
-      -[L1 = 0.001, L2 = 0.0005] : Maxium test accuracy: 99.30, Achieved in epoch: 12, Max Train accuracy : 99.12, Achieved in epoch : 39
+      - [L1 = 0, L2 = 0] : Maxium test accuracy: 99.47, Achieved in epoch: 25, Max Train accuracy : 99.49, Achieved in epoch : 37
+      - [L1 = 0.001, L2 = 0] : Maxium test accuracy: 99.45, Achieved in epoch: 28, Max Train accuracy : 99.46, Achieved in epoch : 38
+      - [L1 = 0, L2 = 0.0005] : Maxium test accuracy: 99.47, Achieved in epoch: 19, Max Train accuracy : 99.13, Achieved in epoch : 35
+      - [L1 = 0.001, L2 = 0.0005] : Maxium test accuracy: 99.30, Achieved in epoch: 12, Max Train accuracy : 99.12, Achieved in epoch : 39
   - Validation accuracy & Test loss plots are as below:
   ![VaL_Acc&Test_Loss](https://github.com/anilbhatt1/Deep_Learning_EVA4_Phase1/blob/master/S6-L1_L2Regularization/Val_Test%20Accuracies.png)
 - Second time when model ran, Values chosen for (L1, L2) for the 4 scenarios are (0,0),(0.0005,0),(0,0.0001),(0.0005,0.0001)].
