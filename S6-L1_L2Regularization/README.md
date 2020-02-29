@@ -28,6 +28,7 @@
   - However incase of other images (eg: human emotion), outliers could be more and features in images will be more complex. Inorder to cater to these images, some of the kernels will get into specialization mode while training. This could lead to overfitting i.e. good training accuracy but not that great train accuracy. In such cases, L1 regularization will help to reduce overfitting by making weights of these specialized kernels to zero thereby killing them.
   - Incase of MNIST, not using regularization is the best option
   - Next best option is to use a moderate value for L1 regularization & no use of L2 regularization.
+  - If L2 regularization alone has to be used, best option is to go for a lower value i.e 0.0001 is better than 0.0005.
   
  - **Misclassified images while using L1 = 0.001 alone**
 
@@ -39,16 +40,15 @@
  
 [With_L1_Regularization only](EVA4_S6_With_L1_Regularization.ipynb)
 ------------------------------------
-- This model was ran before running 'EVA4_S6_With_L1_Regularization.ipynb' to determine best L1 value.
+- This model was ran before running '**EVA4_S6_With_L1_Regularization_V1.ipynb**' and '**EVA4_S6_With_L1_Regularization_V2.ipynb**'to analyze the behaviour of MNIST for various L1 values.
 - Chosen L1 = 0.001 as it seems to stable and giving better test accuracies and test losses than other values.
-- L1 = 0.0005 is also giving good results. But test losses seems to be slightly less stable compared to L1 = 0.001
+- L1 = 0.0005 is also giving good results. But test loss variation seems to be slightly turbulent compared to L1 = 0.001
 - Plots for accuracies and losses are as below for different L1 Values.
 ![L1 Only-Accuracy & Losses](https://github.com/anilbhatt1/Deep_Learning_EVA4_Phase1/blob/master/S6-L1_L2Regularization/Val%20Accuracy_Losses%20for%20diff%20L1%20values.png)
 
 [With_L2_Regularization only](EVA4_S6_With_L2_Regularization.ipynb)
 ------------------------------------
-- This model was ran before running 'EVA4_S6_With_L1_Regularization.ipynb' to determine best L2 value.
-- Chosen L2 = 0.0005 for main model. However, L2 = 0.0001 should have been chosen as it is seems to be stable and giving better test accuracies and test losses than other values.
-- Since overall conclusion after running 4 models is not to use L2, this value change doesn't impact overall analysis.
+- This model was ran before running '**EVA4_S6_With_L1_Regularization_V1.ipynb**' and '**EVA4_S6_With_L1_Regularization_V2.ipynb**'to analyze the behaviour of MNIST for various L2 values.
+- L2 = 0.0001 is best values compared to L2 = 0.0005 as former seems to be more stable and giving better test accuracies and test losses than other values.
 - Plots for accuracies and losses are as below.
 ![L2 Only-Accuracy & Losses](https://github.com/anilbhatt1/Deep_Learning_EVA4_Phase1/blob/master/S6-L1_L2Regularization/Val%20Accuracy_Losses%20for%20diff%20L2%20values.png)
