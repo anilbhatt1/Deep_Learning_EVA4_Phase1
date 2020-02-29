@@ -1,19 +1,26 @@
-[Code with L1 Regularization](EVA4_S6_Regularization.ipynb)
------------------------------------------------------------
 - This notebook is having code base and results of Squeeze-Expand CNN model for MNIST dataset.
-- Objective is to plot and compare validation accuracies and test loss and thereby determine which regularization method - L1, L2, both combined or not having both - gives better results in MNIST.
+- Objective is to plot and compare validation accuracies and test loss and thereby determine which regularization method - with L1, with L2, both combined or not having both - gives better results in MNIST and for which values.
 - Model is having 9680 parameters and was ran 4 times for 40 epochs (1) w/o L1 or L2 (2) With L1 (3) With L2 (4) With L1 & L2.
-- Also 25 misclassified images are plotted for with L1 and with L2 scenarios along with its actual labels & wrongly predicted labels.
-- Values chosen for (L1, L2) for the 4 scenarios are (0,0),(0.001,0),(0,0.0005),(0.001,0.0005)].
+- Also 25 misclassified images are plotted for 'with L1' and 'with L2' scenarios along with its actual labels & wrongly predicted labels.
+- First time when model ran, Values chosen for (L1, L2) for the 4 scenarios are (0,0),(0.001,0),(0,0.0005),(0.001,0.0005)].
+  - Code base is [Code with L1 Regularization_V1](EVA4_S6_Regularization_V1.ipynb)
+  - Results are as follows:
+      -[L1 = 0, L2 = 0] : Maxium test accuracy: 99.47, Achieved in epoch: 25, Max Train accuracy : 99.49, Achieved in epoch : 37
+      -[L1 = 0.001, L2 = 0] : Maxium test accuracy: 99.45, Achieved in epoch: 28, Max Train accuracy : 99.46, Achieved in epoch : 38
+      -[L1 = 0, L2 = 0.0005] : Maxium test accuracy: 99.47, Achieved in epoch: 19, Max Train accuracy : 99.13, Achieved in epoch : 35
+      -[L1 = 0.001, L2 = 0.0005] : Maxium test accuracy: 99.30, Achieved in epoch: 12, Max Train accuracy : 99.12, Achieved in epoch : 39
+  - Validation accuracy & Test loss plots are as below:
+  ![VaL_Acc&Test_Loss](https://github.com/anilbhatt1/Deep_Learning_EVA4_Phase1/blob/master/S6-L1_L2Regularization/Val_Test%20Accuracies.png)
+- Second time when model ran, Values chosen for (L1, L2) for the 4 scenarios are (0,0),(0.0005,0),(0,0.0001),(0.0005,0.0001)].
 - Values for L1(0.001) and L2(0.0005) were arrived based on experiments ran seperately with L1 alone & with L2 alone. Please refer the sections below - EVA4_S6_With_L1_Regularization.ipynb & EVA4_S6_With_L2_Regularization.ipynb regarding these findings.
-- Validation accuracy & Test loss plots are as below. Conclusions are as follows:
+- Conclusions are as follows:
   - Using L1 alone is the best choice for MNIST data set as it is giving a stable smoother curve with higher accuracy and lower test loss.
   - Adding L2 is not helping as curve is rocky and accuracies/test losses are not good compared to 'with L1' and 'w/o L1 or L2' models.
   - Even without regularization, model is performing well. This could be because MNIST is a straight-forward dataset. Hence regularization won't do much improvement because kernel values easily gets generalized and there are not much challenges for kernels to fall into specialization trap. 
   - However incase of other images (eg: human emotion), outliers could be more and features in images will be more complex. Inorder to cater to these images, some of the kernels will get into specialization mode while training. This could lead to overfitting i.e. good training accuracy but not that great train accuracy. In such cases, L1 regularization will help to reduce overfitting by making weights of these specialized kernels to zero thereby killing them.
   - Hence, a moderate value of L1 regularization & no use of L2 regularization is most desirable.
   
-![VaL_Acc&Test_Loss](https://github.com/anilbhatt1/Deep_Learning_EVA4_Phase1/blob/master/S6-L1_L2Regularization/Val_Test%20Accuracies.png)
+
 
  - Misclassified images while using L1 = 0.001 alone
 
