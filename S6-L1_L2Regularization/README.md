@@ -26,7 +26,14 @@ EVA4_S6_Regularization.ipynb
 EVA4_S6_With_L1_Regularization.ipynb
 ------------------------------------
 - This model was ran before running 'EVA4_S6_With_L1_Regularization.ipynb' to determine best L1 value.
-- Chosen L1 = 0.001 as it seems to stable and giving accuracies and test losses than other values.
+- Chosen L1 = 0.001 as it seems to stable and giving better test accuracies and test losses than other values.
 - L1 = 0.0005 is also giving good results. But test losses seems to be slightly less stable compared to L1 = 0.001
-- Plots for accuracies and losses are as below.
+- Plots for accuracies and losses are as below for different L1 Values.
 ![L1 Only-Accuracy & Losses](https://github.com/anilbhatt1/Deep_Learning_EVA4_Phase1/blob/master/S6-L1_L2Regularization/Val%20Accuracy_Losses%20for%20diff%20L1%20values.png)
+
+EVA4_S6_With_L2_Regularization.ipynb
+------------------------------------
+- This model was ran before running 'EVA4_S6_With_L1_Regularization.ipynb' to determine best L2 value.
+- Chosen L2 = 0.0005 for main model. However, L2 = 0.0001 should have been chosen as it is more stable and giving better test accuracies and test losses than other values.
+- Plots for accuracies and losses are as below.
+![L2 Only-Accuracy & Losses](https://github.com/anilbhatt1/Deep_Learning_EVA4_Phase1/blob/master/S6-L1_L2Regularization/Val%20Accuracy_Losses%20for%20diff%20L2%20values.png)
