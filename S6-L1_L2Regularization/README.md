@@ -6,3 +6,4 @@ EVA4_S6_Regularization.ipynb
 - Also 25 mis-classified images are plotted for each of these scenarios along with its actual labels & wrongly predicted labels.
 - Values chosen for (L1, L2) for the 4 scenarios are (0,0),(0.001,0),(0,0.0005),(0.001,0.0005)].
 - Values for L1(0.001) and L2(0.0005) were arrived based on experiments ran seperately with L1 alone & with L2 alone. Refer the notebook descriptions below.
+![VaL_Acc&Test_Loss]https://github.com/anilbhatt1/Deep_Learning_EVA4_Phase1/blob/master/S6-L1_L2Regularization/Val_Test%20Accuracies.png
