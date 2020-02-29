@@ -14,3 +14,9 @@ EVA4_S6_Regularization.ipynb
   - Hence, a moderate value of L1 regularization & no use of L2 regularization is most desirable.
   
 ![VaL_Acc&Test_Loss](https://github.com/anilbhatt1/Deep_Learning_EVA4_Phase1/blob/master/S6-L1_L2Regularization/Val_Test%20Accuracies.png)
+
+ - Misclassified images while using L1 = 0.001 alone
+
+!
+
+ - Misclassified images while using L2 = 0.0005 alone
