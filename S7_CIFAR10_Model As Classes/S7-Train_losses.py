@@ -6,7 +6,7 @@ import torch.optim as optim
 import numpy as np
 from tqdm import tqdm
 
-# # class for Calculating and storing training losses of model ## 
+# # class for Calculating and storing training losses and training accuracies of model for each batch per epoch ## 
 class Train_loss:
       def __init__(self,model, device, train_loader, optimizer, epoch, factor):
           self.model        = model
