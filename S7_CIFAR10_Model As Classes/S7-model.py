@@ -1,10 +1,6 @@
-from __future__ import print_function
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch.optim as optim
-import numpy as np
-from tqdm import tqdm
 
 class Net(nn.Module):
 
@@ -42,8 +38,8 @@ class Net(nn.Module):
         self.depthwise2B = nn.Sequential(
             nn.Conv2d(in_channels=64, out_channels=64, kernel_size=(3, 3), padding=1, bias=False, groups=in_channels),
             nn.ReLU(),
-            nn.BatchNorm2d(16),
-            nn.Dropout(dropout_value)
+            nn.BatchNorm2d(64),
+            nn.Dropout(dropout_value)   
         ) # in = 16x16x1x64 , out = 16x16x64, RF = 16
         self.pointwise2C = nn.Sequential(
             nn.Conv2d(in_channels=64, out_channels=128, kernel_size=(1, 1), padding=0, bias=False)
@@ -66,7 +62,7 @@ class Net(nn.Module):
         # TRANSITION BLOCK 3
         self.pool3 = nn.MaxPool2d(2, 2) # in = 8x8x64 , out = 4x4x64, RF = 30
         self.tran3 = nn.Sequential(
-            nn.Conv2d(in_channels=64, out_channels=32, kernel_size=(1, 1), padding=0, bias=False)
+            nn.Conv2d(in_channels=64, out_channels=32, kernel_size=(1, 1), padding=1, bias=False)
         ) # in = 4x4x64 , out = 4x4x32, RF = 30
         
         # OUTPUT BLOCK
