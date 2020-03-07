@@ -19,7 +19,7 @@ class Net(nn.Module):
             nn.Dropout(dropout_value)
         ) # in = 32x32x3 , out = 32x32x32, RF = 3
 
-        self.convblock1B = nn.Sequential(
+        self.dilated1B = nn.Sequential(
             nn.Conv2d(in_channels=32, out_channels=64, kernel_size=(3, 3), padding=2, bias=False, dilation=2),
             nn.ReLU(),
             nn.BatchNorm2d(64),
@@ -78,10 +78,12 @@ class Net(nn.Module):
         ) # in = 1x1x32 , out = 1x1x10, RF = 54
 
     def forward(self, x):
-        x = self.convblock2(self.convblock1(x))
-        x = self.pool1(x)
-        x = self.convblock4(self.convblock3(x))
-        x = self.Gap1(self.convblock5(x))
-        x = self.fc1(x)
+        x = self.dilated1B(self.convblock1A(x))
+        x = self.tran1(self.pool1(x))
+        x = self.pointwise2C(self.depthwise2B(self.convblock2A(x)))
+        x = self.tran2(self.pool2(x))
+        x = self.convblock3A(X)
+        x = self.tran3(self.pool3(x))
+        x = self.fc1(self.Gap1(x))
         x = x.view(-1, 10)
         return F.log_softmax(x, dim=-1)
