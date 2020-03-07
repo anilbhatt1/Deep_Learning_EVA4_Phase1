@@ -18,7 +18,7 @@ class Train_loss:
         
       def train_loss_calc(self):
           model.train()
-          pbar = tqdm(train_loader)
+          pbar = tqdm(train_loader)  # Wrapping train_loader in tqdm to show progress bar for each epoch while training
           
           correct             = 0
           processed           = 0
