@@ -23,11 +23,7 @@ class Train_loss:
           correct             = 0
           processed           = 0
           train_losses        = []
-          test_losses         = []
           train_acc           = []
-          test_acc            = []
-          train_acc_epoch     = []
-          train_losses_epoch  = []
           
           for batch_idx, (images, labels) in enumerate(pbar):
               images, labels = images.to(device), labels.to(device)   # Moving images and correspondig labels to GPU
@@ -42,7 +38,21 @@ class Train_loss:
                 zero_tensor = torch.rand_like(param) * 0 # Creating a zero tensor with same size as param
                 reg_loss    += L1_criterion(param, zero_tensor)
               loss += factor * reg_loss 
-               
+              train_losses.append(loss)
+            
+              # Backpropagation
+              loss.backward()
+              optimizer.step()
+              
+              # Calculating accuracies
+              labels_pred_max = labels_pred.argmax(dim = 1, keepdim = True) # Getting the index of max log probablity predicted by model
+              correct         += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item() # Getting count of correctly predicted
+              processed       += len(images) # Getting count of processed images
+              train_acc_batch = (correct/processed)*100
+              pbar.set_description(desc=f'Epoch = {epoch} Train Loss = {loss.item()} Batch Id = {batch_idx} Train Accuracy = {train_acc_batch:0.2f}')
+              train_acc.append(train_acc_batch)  
+             
+          return train_losses, train_acc         
                 
                 
                 
