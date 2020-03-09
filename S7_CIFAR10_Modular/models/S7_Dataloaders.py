@@ -3,7 +3,7 @@ import torch
 
 # Class to create a Data Loader 
 # Data Loader is a place holder using which we will load the train and test data sets.
-Class DataLoader:
+class DataLoader:
       
     def __init__(self, shuffle, batch_size, seed):
         self.shuffle = True,
