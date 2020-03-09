@@ -37,4 +37,3 @@ class Transforms_custom:
              transforms_list.extend(after_norm)
            
           return transforms.Compose(transforms_list)
-© 2020 GitHub, Inc.
