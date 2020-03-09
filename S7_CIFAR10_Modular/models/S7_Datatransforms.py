@@ -30,11 +30,11 @@ class Transforms_custom:
           else:
              transforms_list = [transforms.ToTensor()]
              
-           if (self.normalize):
-              transforms_list.append(transforms.Normalize(self.mean,self.stdev))
+          if (self.normalize):
+             transforms_list.append(transforms.Normalize(self.mean,self.stdev))
            
-           if after_norm:
-               transforms_list.extend(after_norm)
+          if after_norm:
+             transforms_list.extend(after_norm)
            
-           return transforms.Compose(transforms_list)
+          return transforms.Compose(transforms_list)
 © 2020 GitHub, Inc.
