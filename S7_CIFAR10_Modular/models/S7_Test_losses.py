@@ -32,7 +32,7 @@ class Test_loss:
                     correct          += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item()
                 
                 processed   = len(test_loader)
-                test_loss   =/ processed  # Calculating overall test loss for the epoch
+                test_loss   /= processed  # Calculating overall test loss for the epoch
                 test_losses.append(test_loss)    
                   
                 test_accuracy =  correct/processed
