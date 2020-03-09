@@ -18,5 +18,5 @@ class DataLoader:
         # # dataloader arguments # # which we load
         self.dataloader_args = dict(shuffle=shuffle, batch_size=batch_size, num_workers=4, pin_memory=True) if cuda else dict(shuffle=shuffle, batch_size=batch_size/2)
 
-        def load(self, data):
-            return torch.utils.data.DataLoader(data, **self.dataloader_args)
+    def load(self, data):
+        return torch.utils.data.DataLoader(data, **self.dataloader_args)
