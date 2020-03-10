@@ -8,12 +8,12 @@ from tqdm import tqdm
 
 # # class for Calculating and storing testing losses and testing accuracies of model for each epoch ## 
 class Test_loss:
-       def __init__(self, model, device, test_loader):
+
+       def test_loss_calc(self,model, device, test_loader):
            self.model        = model
            self.device       = device
-           self.test_loader  = test_loader
+           self.test_loader  = test_loader  
        
-       def test_loss_calc(self):
            model.eval()
            
            correct        = 0
