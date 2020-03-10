@@ -24,7 +24,8 @@ class Test_loss:
            test_acc       = []
            
            with torch.no_grad():               # For test data, we won't do backprop, hence no need to capture gradients
-                for images,labels in enumerate(test_loader):
+                for data in enumerate(test_loader):
+                    images,labels    = data    
                     images,labels    = images.to(device),labels.to(device)
                     labels_pred      = model(images)
                     test_loss        += F.nll_loss(labels_pred, labels, reduction = 'sum').item()                        
