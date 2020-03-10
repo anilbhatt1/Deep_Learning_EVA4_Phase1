@@ -36,7 +36,7 @@ class Net(nn.Module):
             nn.Dropout(dropout_value)
         ) # in = 16x16x32 , out = 16x16x64, RF = 12
         self.depthwise2B = nn.Sequential(
-            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=(3, 3), padding=1, bias=False, groups=in_channels),
+            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=(3, 3), padding=1, bias=False, groups=64),
             nn.ReLU(),
             nn.BatchNorm2d(64),
             nn.Dropout(dropout_value)   
