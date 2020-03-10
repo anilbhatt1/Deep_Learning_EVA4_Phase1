@@ -78,7 +78,7 @@ class Net(nn.Module):
         x = self.tran1(self.pool1(x))
         x = self.pointwise2C(self.depthwise2B(self.convblock2A(x)))
         x = self.tran2(self.pool2(x))
-        x = self.convblock3A(X)
+        x = self.convblock3A(x)
         x = self.tran3(self.pool3(x))
         x = self.fc1(self.Gap1(x))
         x = x.view(-1, 10)
