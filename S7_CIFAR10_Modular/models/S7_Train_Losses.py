@@ -8,8 +8,6 @@ from tqdm import tqdm
 
 # # class for Calculating and storing training losses and training accuracies of model for each batch per epoch ## 
 class Train_loss:
-      
-      def __init__(self):
         
       def train_loss_calc(self,model, device, train_loader, optimizer, epoch, factor):
             
