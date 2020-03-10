@@ -1,10 +1,10 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+dropout_value = 0.05
 
 class Net(nn.Module):
 
-    dropout_value = 0.05
     def __init__(self):
         super(Net, self).__init__()
         # CONVOLUTION BLOCK 1
