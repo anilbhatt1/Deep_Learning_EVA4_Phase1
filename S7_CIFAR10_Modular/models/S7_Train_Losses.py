@@ -26,7 +26,10 @@ class Train_loss:
           train_losses        = []
           train_acc           = []
           
-          for batch_idx, (images, labels) in enumerate(pbar):
+          for batch_idx, data in enumerate(pbar,0):
+                        
+              images, labels = data        
+                       
               images, labels = images.to(device), labels.to(device)   # Moving images and correspondig labels to GPU
               optimizer.zero_grad()  # Zeroing out gradients at start of each batch so that backpropagation won't take accumulated value
               labels_pred = model(images)  # Calling CNN model to predict the images
