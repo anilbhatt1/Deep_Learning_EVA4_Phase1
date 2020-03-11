@@ -1,6 +1,9 @@
 Modular arrangement of convolutional neural network on CIFAR10 dataset.
 
-**Master_Model.ipynb - Main python module. Different classes are called in below order from this module.**
+**Master_Model.ipynb** - Main python module. Different classes are called in below order from this module. Model architecture is as below
+
+3x3 -> Dilated (2) -> MP -> 1x1 -> 3x3 -> Depthwise -> Pointwise -> MP -> 1x1 -> 3x3 -> MP -> 1x1 -> GAP -> FC -> Softmax 
+
 - S7_Datatransform.py -> This module stores data tranform class. There are 2 methods 
 
   a) test_transforms -> to create transform objects with just convert to tensor and normalize methods 
