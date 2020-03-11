@@ -53,7 +53,7 @@ class Train_loss:
               correct         += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item() # Getting count of correctly predicted
               processed       += len(images) # Getting count of processed images
               train_acc_batch = (correct/processed)*100
-              pbar.set_description(desc=f'Epoch = {epoch} Train Loss = {loss.item()} Batch Id = {batch_idx} Train Accuracy = {train_acc_batch:0.2f}')
+              pbar.set_description(desc=f'Train Loss = {loss.item()} Batch Id = {batch_idx} Train Accuracy = {train_acc_batch:0.2f}')
               train_acc.append(train_acc_batch)  
              
           return train_losses, train_acc         
