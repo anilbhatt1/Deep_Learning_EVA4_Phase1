@@ -22,6 +22,8 @@ class Test_loss:
            test_accuracy  = 0 
            test_losses    = []
            test_acc       = []
+           test_new       = 0
+           total          = 0
            
            with torch.no_grad():               # For test data, we won't do backprop, hence no need to capture gradients
                 for images,labels in test_loader:
@@ -31,14 +33,21 @@ class Test_loss:
                     test_loss        += F.nll_loss(labels_pred, labels, reduction = 'sum').item()                        
                     labels_pred_max  = labels_pred.argmax(dim =1, keepdim = True)
                     correct          += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item()
+                    total            += labels.size(0) 
                 
                 processed   = len(test_loader)
+                print('processed',processed)
+                print('correct',correct)
+                print('total',total)
                 test_loss   /= processed  # Calculating overall test loss for the epoch
                 test_losses.append(test_loss)    
                                   
                 test_accuracy =  correct/processed
-                test_acc.append(test_accuracy)                 
+                test_acc.append(test_accuracy)   
+                
+                test_new = correct/total
                   
-                print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}\n'.format(test_loss, test_accuracy))
+                print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}, Test new: {.2f\n'
+                      .format(test_loss, test_accuracy,test_new))
 
            return test_losses, test_acc
