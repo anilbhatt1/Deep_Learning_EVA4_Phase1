@@ -1,4 +1,5 @@
 Modular arrangement of convolutional neural network on CIFAR10 dataset.
+
 **Master_Model.ipynb - Main python module. Different classes are called in below order from this module.**
 - S7_Datatransform.py -> This module stores data tranform class. There are 2 methods 
 
