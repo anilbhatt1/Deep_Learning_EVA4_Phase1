@@ -36,10 +36,9 @@ class Test_loss:
                 test_loss   /= total  # Calculating overall test loss for the epoch
                 test_losses.append(test_loss)    
                                   
-                test_accuracy =  correct/total
+                test_accuracy =  (correct/total)* 100
                 test_acc.append(test_accuracy)             
                
-                print('len(test_loader), len(test_loader.dataset) : ', len(test_loader), len(test_loader.dataset))
                 print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}\n' .format(test_loss, test_accuracy))
 
            return test_losses, test_acc
