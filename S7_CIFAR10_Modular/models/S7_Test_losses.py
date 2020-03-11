@@ -39,6 +39,7 @@ class Test_loss:
                 test_accuracy =  correct/total
                 test_acc.append(test_accuracy)             
                
-                print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}\n' .format(test_loss, test_accuracy,test_new))
+                print('len(test_loader), len(test_loader.dataset) : ', len(test_loader), len(test_loader.dataset))
+                print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}\n' .format(test_loss, test_accuracy))
 
            return test_losses, test_acc
