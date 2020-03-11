@@ -22,7 +22,7 @@ class Train_loss:
           pbar = tqdm(train_loader)  # Wrapping train_loader in tqdm to show progress bar for each epoch while training
           
           correct             = 0
-          processed           = 0
+          total               = 0
           train_losses        = []
           train_acc           = []
           
@@ -42,7 +42,7 @@ class Train_loss:
                 zero_tensor = torch.rand_like(param) * 0 # Creating a zero tensor with same size as param
                 reg_loss    += L1_criterion(param, zero_tensor)
               loss += factor * reg_loss 
-              train_losses.append(loss)
+              
             
               # Backpropagation
               loss.backward()
@@ -51,9 +51,11 @@ class Train_loss:
               # Calculating accuracies
               labels_pred_max = labels_pred.argmax(dim = 1, keepdim = True) # Getting the index of max log probablity predicted by model
               correct         += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item() # Getting count of correctly predicted
-              processed       += len(images) # Getting count of processed images
-              train_acc_batch = (correct/processed)*100
+              total           += len(images) # Getting count of processed images
+              train_acc_batch = (correct/total)*100
               pbar.set_description(desc=f'Train Loss = {loss.item()} Batch Id = {batch_idx} Train Accuracy = {train_acc_batch:0.2f}')
-              train_acc.append(train_acc_batch)  
-             
+          
+          train_acc.append(train_acc_batch)  # To capture only final batch accuracy of an epoch
+          train_losses.append(loss)          # To capture only final batch loss of an epoch
+        
           return train_losses, train_acc         
