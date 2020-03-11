@@ -35,11 +35,9 @@ class Test_loss:
                 processed   = len(test_loader)
                 test_loss   /= processed  # Calculating overall test loss for the epoch
                 test_losses.append(test_loss)    
-                print('test_losses',test_losses)
-                  
+                                  
                 test_accuracy =  correct/processed
-                test_acc.append(test_accuracy)
-                print('test_acc',test_acc)     
+                test_acc.append(test_accuracy)                 
                   
                 print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}\n'.format(test_loss, test_accuracy))
 
