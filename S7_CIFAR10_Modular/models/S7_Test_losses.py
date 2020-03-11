@@ -47,7 +47,7 @@ class Test_loss:
                 
                 test_new = correct/total
                   
-                print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}, Test new: {.2f}\n'
+                print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}, Test new: {:.2f}\n'
                       .format(test_loss, test_accuracy,test_new))
 
            return test_losses, test_acc
