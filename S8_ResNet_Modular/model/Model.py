@@ -61,10 +61,9 @@ class ResNet(nn.Module):
         print('O/P of 1st operation:', out.shape)
         out = self.linear(out)
         print('O/P of Linear:', out.shape)
-        out = out.view(-1, 10)
+        out = out.view(-1, 10)
         print('O/P of 2nd operation:', out.shape)
         return F.log_softmax(out, dim=-1)
-
-
+    
 def ResNet18():
     return ResNet(BasicBlock, [2,2,2,2])
