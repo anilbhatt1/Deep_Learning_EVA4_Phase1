@@ -55,8 +55,11 @@ class ResNet(nn.Module):
         out = self.layer2(out)
         out = self.layer3(out)
         out = self.layer4(out)
+        print('O/P of Layer 4:', out.shape)
         out = self.Gap1(out)
+        print('O/P of Gap:', out.shape)
         out = self.fc(out)
+        print('O/P of fc:', out.shape)
         x = x.view(-1, 10)
         return F.log_softmax(out, dim=-1)
 
