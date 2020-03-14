@@ -1,4 +1,4 @@
-Modular arrangement of convolutional neural network on CIFAR10 dataset.
+Convolutional neural network (Squeeze Expand Architecture) on CIFAR10 dataset.
 
 **Master_Model.ipynb** - Main python module. Different classes are called in below order from this module. Model architecture is as below
 
