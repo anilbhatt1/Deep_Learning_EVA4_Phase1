@@ -3,9 +3,12 @@ from torchvision import transforms
 # # class for Transformations ## 
 class Transforms_custom:
       def __init__(self,normalize=False, mean=None, stdev=None):
-      
+            
+          if normalize and (not mean or not stdev):
+            raise ValueError('mean and stdev both are required for normalize transform')
+            
           self.normalize = normalize
-          self.mean      = mean      ## Make sure you pass the meand and stdev whenever normalization is set to true 
+          self.mean      = mean      ## Make sure to pass the mean and stdev whenever normalization is set to true 
           self.stdev     = stdev
       
       
