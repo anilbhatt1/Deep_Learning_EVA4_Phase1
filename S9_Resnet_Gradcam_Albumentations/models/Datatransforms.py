@@ -23,6 +23,7 @@ class Transforms_custom:
           transforms_list = []
           if (self.normalize):
              transforms_list.append(A.Normalize(self.mean,self.stdev))
+            
           transforms_list.append = [AP.ToTensor()]
           self.transforms = A.Compose(transforms_list)
           
@@ -38,9 +39,9 @@ class Transforms_custom:
              transforms_list.append(A.Normalize(self.mean,self.stdev))
            
           if after_norm:
-             transforms_list.extend(after_norm)
+             transforms_list.append(after_norm)
           
-          transforms_list.extend(AP.ToTensor())
+          transforms_list.append(AP.ToTensor())
            
           self.transforms = A.Compose(transforms_list)
       
