@@ -22,9 +22,9 @@ class Transforms_custom:
       def test_transforms(self):
           transforms_list = []
           if (self.normalize):
-             transforms_list.extend(A.Normalize(self.mean,self.stdev))
+             transforms_list.append(A.Normalize(self.mean,self.stdev))
             
-          transforms_list.extend = [AP.ToTensor()]
+          transforms_list.append = [AP.ToTensor()]
           self.transforms = A.Compose(transforms_list)
           
       # Define a method for train data . It can have multiple transformations other than changing to tensor and normalizing
@@ -36,12 +36,12 @@ class Transforms_custom:
              transforms_list = before_norm 
              
           if (self.normalize):
-             transforms_list.extend(A.Normalize(self.mean,self.stdev))
+             transforms_list.append(A.Normalize(self.mean,self.stdev))
            
           if after_norm:
              transforms_list.extend(after_norm)
           
-          transforms_list.extend(AP.ToTensor())
+          transforms_list.append(AP.ToTensor())
            
           self.transforms = A.Compose(transforms_list)
       
