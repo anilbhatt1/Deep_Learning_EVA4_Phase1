@@ -1,4 +1,8 @@
 from torchvision import transforms
+import albumentations as A
+import albumentations.pytorch as AP
+import random
+import numpy as np
 
 # # class for Transformations ## 
 class Transforms_custom:
@@ -16,27 +20,30 @@ class Transforms_custom:
       # We just need to normalize with mean and stdev
       
       def test_transforms(self):
-          transforms_list = [transforms.ToTensor()]
+          transforms_list = []
           if (self.normalize):
-             transforms_list.append(transforms.Normalize(self.mean,self.stdev))
-          return transforms.Compose(transforms_list)
+             transforms_list.append(A.Normalize(self.mean,self.stdev))
+          transforms_list.append = [AP.ToTensor()]
+          self.transforms = A.Compose(transforms_list)
           
       # Define a method for train data . It can have multiple transformations other than changing to tensor and normalizing
-      # so create your lists accordingly . One for before converting to tensor and normalization 
-      # one for after converting it to tensor and normalization
-      
+      # so create your lists accordingly . One before normalization and one after it
       
       def train_transforms(self , before_norm=None, after_norm=None):
+          transforms_list = []  
           if before_norm:
              transforms_list = before_norm 
-             transforms_list.append(transforms.ToTensor())
-          else:
-             transforms_list = [transforms.ToTensor()]
              
           if (self.normalize):
-             transforms_list.append(transforms.Normalize(self.mean,self.stdev))
+             transforms_list.append(A.Normalize(self.mean,self.stdev))
            
           if after_norm:
              transforms_list.extend(after_norm)
+          
+          transforms_list.extend(AP.ToTensor())
            
-          return transforms.Compose(transforms_list)
+          self.transforms = A.Compose(transforms_list)
+      
+      def __call__(self, img):
+          img = np.array(img)
+          return self.transforms(image=img)['image']
