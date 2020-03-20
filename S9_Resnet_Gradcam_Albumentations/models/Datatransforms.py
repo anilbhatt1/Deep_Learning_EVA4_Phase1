@@ -24,7 +24,7 @@ class Transforms_custom:
           if (self.normalize):
              transforms_list.append(A.Normalize(self.mean,self.stdev))
             
-          transforms_list.append = [AP.ToTensor()]
+          transforms_list.append(AP.ToTensor())
           self.transforms = A.Compose(transforms_list)
           
       # Define a method for train data . It can have multiple transformations other than changing to tensor and normalizing
