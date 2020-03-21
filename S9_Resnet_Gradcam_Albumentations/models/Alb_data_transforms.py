@@ -10,7 +10,6 @@ class Albumentations_transform:
   Class to create test and train transforms using Albumentations. ToTensor() will be appended at the end of transforms list
   """
   def __init__(self, transforms_list=[]):
-    print('__transformation__')
     transforms_list.append(AP.ToTensor())
     
     self.transforms = A.Compose(transforms_list)
@@ -19,7 +18,6 @@ class Albumentations_transform:
   Wrapper Model to convert to np array
   """
   def __call__(self, img):
-    print('__call_')  
     img = np.array(img)
     #print(img)
     return self.transforms(image=img)['image']
