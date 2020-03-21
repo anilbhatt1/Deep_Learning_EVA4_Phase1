@@ -9,15 +9,15 @@ from tqdm import tqdm
 # # class for Calculating and storing training losses and training accuracies of model for each batch per epoch ## 
 class Train_loss:
         
-      def train_loss_calc(self,model, device, train_loader, optimizer, scheduler =None, epoch, factor):
+      def train_loss_calc(self,model, device, train_loader, optimizer, epoch, factor, scheduler =None):
             
           self.model        = model
           self.device       = device
           self.train_loader = train_loader
-          self.optimizer    = optimizer
-          self.scheduler    = scheduler      
+          self.optimizer    = optimizer   
           self.epoch        = epoch
-          self.factor       = factor              
+          self.factor       = factor   
+          self.scheduler    = scheduler       
           
           model.train()
           pbar = tqdm(train_loader)  # Wrapping train_loader in tqdm to show progress bar for each epoch while training
