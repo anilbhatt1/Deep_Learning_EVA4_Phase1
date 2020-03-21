@@ -151,7 +151,7 @@ def ResNet18():
 class CIFAR10Net_S9(nn.Module):
 
     def __init__(self):
-        super(Net, self).__init__()
+        super(CIFAR10Net_S9, self).__init__()
         # CONVOLUTION BLOCK 1
         self.convblock2 = nn.Sequential(
             nn.Conv2d(in_channels=3, out_channels=32, kernel_size=(3, 3), padding=1, bias=False),
