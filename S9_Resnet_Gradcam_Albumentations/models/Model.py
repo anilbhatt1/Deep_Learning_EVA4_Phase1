@@ -213,7 +213,7 @@ class CIFAR10Net_S9(nn.Module):
         self.convblock11 = nn.Sequential(
             nn.Conv2d(in_channels=64, out_channels=32, kernel_size=(3, 3), padding=1, bias=False),
             nn.ReLU(),
-            nn.BatchNorm2d(64),
+            nn.BatchNorm2d(32),
             nn.Dropout(dropout_value)
         ) # in = 8x8x32 , out = 8x8x64, RF = 26              
       
