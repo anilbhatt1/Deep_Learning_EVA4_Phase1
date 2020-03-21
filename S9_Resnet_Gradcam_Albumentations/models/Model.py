@@ -148,7 +148,7 @@ class ResNet(nn.Module):
 def ResNet18():
     return ResNet(BasicBlock, [2,2,2,2])
 
-class CIFAR10Net_(nn.Module):
+class CIFAR10Net_S9(nn.Module):
 
     def __init__(self):
         super(Net, self).__init__()
@@ -211,7 +211,7 @@ class CIFAR10Net_(nn.Module):
         ) # in = 8x8x32 , out = 8x8x64, RF = 26 
         
         self.convblock11 = nn.Sequential(
-            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=(3, 3), padding=1, bias=False),
+            nn.Conv2d(in_channels=64, out_channels=32, kernel_size=(3, 3), padding=1, bias=False),
             nn.ReLU(),
             nn.BatchNorm2d(64),
             nn.Dropout(dropout_value)
@@ -219,20 +219,18 @@ class CIFAR10Net_(nn.Module):
       
         # OUTPUT BLOCK
         self.Gap1 = nn.Sequential(
-            nn.AvgPool2d(kernel_size=4)
+            nn.AvgPool2d(kernel_size=8)
         ) # in = 4x4x32 , out = 1x1x32, RF = 54	
         self.fc1 = nn.Sequential(
             nn.Conv2d(in_channels=32, out_channels=10, kernel_size=(1, 1), padding=0, bias=False)
         ) # in = 1x1x32 , out = 1x1x10, RF = 54
 
     def forward(self, x):
-        x = self.dilated1B(self.convblock1A(x))
-        x = self.tran1(self.pool1(x))
-        x = self.pointwise2C(self.depthwise2B(self.convblock2A(x)))
-        x = self.tran2(self.pool2(x))
-        x = self.convblock3A(x)
-        x = self.tran3(self.pool3(x))
+        x = self.convblock3(self.convblock2(x))
+        x = self.pool4(x)
+        x = self.convblock7(self.convblock6(self.convblock5(x)))
+        x = self.pool8(x)
+        x = self.convblock12(self.convblock11(self.convblock10(x)))
         x = self.fc1(self.Gap1(x))
         x = x.view(-1, 10)
         return F.log_softmax(x, dim=-1)
-
