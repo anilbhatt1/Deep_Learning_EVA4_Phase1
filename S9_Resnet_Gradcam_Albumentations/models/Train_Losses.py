@@ -59,9 +59,10 @@ class Train_loss:
               correct         += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item() # Getting count of correctly predicted
               total           += len(images) # Getting count of processed images
               train_acc_batch = (correct/total)*100            
-              pbar.set_description(desc=f'Train Loss = {loss.item()} Batch Id = {batch_idx} Train Accuracy = {train_acc_batch:0.2f} lr = {self.scheduler.get_last_lr()[0]:0.6f}')
+              pbar.set_description(desc=f'Train Loss = {loss.item()} Batch Id = {batch_idx} Train Accuracy = {train_acc_batch:0.2f} \
+                                   lr = {self.scheduler.get_last_lr()[0]:0.6f}')
                                           
-              if self.scheduler and print_idx != 0 and 
+              if self.scheduler and print_idx != 0 and \
                  (batch_idx % print_idx == 0 or np.round(self.scheduler.get_last_lr()[0],6) == maxlr):
                  pbar.write(f"Learning Rate = {self.scheduler.get_last_lr()[0]:0.6f}")      
         
