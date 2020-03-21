@@ -22,6 +22,7 @@ class Train_loss:
           model.train()
           pbar = tqdm(train_loader)  # Wrapping train_loader in tqdm to show progress bar for each epoch while training
           
+          print_idx           = 75
           correct             = 0
           total               = 0
           train_losses        = []
@@ -58,7 +59,7 @@ class Train_loss:
               total           += len(images) # Getting count of processed images
               train_acc_batch = (correct/total)*100            
               pbar.set_description(desc=f'Train Loss = {loss.item()} Batch Id = {batch_idx} Train Accuracy = {train_acc_batch:0.2f}')
-              if self.scheduler:
+              if self.scheduler and batch_idx % print_idx == 0:
                  pbar.write(f"Learning Rate = {self.scheduler.get_last_lr()[0]:0.6f}")      
         
           train_acc.append(train_acc_batch)  # To capture only final batch accuracy of an epoch
