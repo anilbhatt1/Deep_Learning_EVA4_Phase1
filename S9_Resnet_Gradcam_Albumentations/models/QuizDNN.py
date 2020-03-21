@@ -1,3 +1,8 @@
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+dropout_value = 0.05
+
 class CIFAR10Net_S9(nn.Module):
 
     def __init__(self):
