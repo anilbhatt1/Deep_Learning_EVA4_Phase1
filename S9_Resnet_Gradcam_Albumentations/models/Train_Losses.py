@@ -9,14 +9,15 @@ from tqdm import tqdm
 # # class for Calculating and storing training losses and training accuracies of model for each batch per epoch ## 
 class Train_loss:
         
-      def train_loss_calc(self,model, device, train_loader, optimizer, epoch, factor):
+      def train_loss_calc(self,model, device, train_loader, optimizer, scheduler =None, epoch, factor):
             
           self.model        = model
           self.device       = device
           self.train_loader = train_loader
           self.optimizer    = optimizer
+          self.scheduler    = scheduler      
           self.epoch        = epoch
-          self.factor       = factor
+          self.factor       = factor              
           
           model.train()
           pbar = tqdm(train_loader)  # Wrapping train_loader in tqdm to show progress bar for each epoch while training
@@ -48,13 +49,17 @@ class Train_loss:
               loss.backward()
               optimizer.step()
               
+              lr = self.scheduler.get_last_lr()[0] if self.scheduler else (self.optimizer.lr_scheduler.get_last_lr()[0] if self.optimizer.lr_scheduler else self.optimizer.param_groups[0]['lr'])
               # Calculating accuracies
               labels_pred_max = labels_pred.argmax(dim = 1, keepdim = True) # Getting the index of max log probablity predicted by model
               correct         += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item() # Getting count of correctly predicted
               total           += len(images) # Getting count of processed images
-              train_acc_batch = (correct/total)*100
+              train_acc_batch = (correct/total)*100            
               pbar.set_description(desc=f'Train Loss = {loss.item()} Batch Id = {batch_idx} Train Accuracy = {train_acc_batch:0.2f}')
-          
+              if self.scheduler:
+                 self.scheduler.step()  
+                 pbar.write(f"Learning Rate = {self.scheduler.get_last_lr()[0]:0.6f}")      
+        
           train_acc.append(train_acc_batch)  # To capture only final batch accuracy of an epoch
           train_losses.append(loss)          # To capture only final batch loss of an epoch
         
