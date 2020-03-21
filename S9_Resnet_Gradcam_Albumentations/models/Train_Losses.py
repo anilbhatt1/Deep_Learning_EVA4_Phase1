@@ -63,7 +63,7 @@ class Train_loss:
                                           
               if self.scheduler and print_idx != 0 and \
                  (batch_idx % print_idx == 0 or np.round(self.scheduler.get_last_lr()[0],6) == maxlr):
-                 pbar.write(f"Learning Rate = {self.scheduler.get_last_lr()[0]:0.6f}")      
+                 pbar.write(f"Learning Rate(lr) = {self.scheduler.get_last_lr()[0]:0.6f}")      
         
           train_acc.append(train_acc_batch)  # To capture only final batch accuracy of an epoch
           train_losses.append(loss)          # To capture only final batch loss of an epoch
