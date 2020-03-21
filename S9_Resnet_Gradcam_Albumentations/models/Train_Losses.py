@@ -9,7 +9,7 @@ from tqdm import tqdm
 # # class for Calculating and storing training losses and training accuracies of model for each batch per epoch ## 
 class Train_loss:
         
-      def train_loss_calc(self,model, device, train_loader, optimizer, epoch, factor, scheduler =None):
+      def train_loss_calc(self,model, device, train_loader, optimizer, epoch, factor, scheduler =None, print_idx=0, maxlr=0):
             
           self.model        = model
           self.device       = device
@@ -17,12 +17,13 @@ class Train_loss:
           self.optimizer    = optimizer   
           self.epoch        = epoch
           self.factor       = factor   
-          self.scheduler    = scheduler       
+          self.scheduler    = scheduler
+          self.print_idx    = print_idx
+          self.maxlr        = maxlr      
           
           model.train()
-          pbar = tqdm(train_loader)  # Wrapping train_loader in tqdm to show progress bar for each epoch while training
-          
-          print_idx           = 75
+          pbar = tqdm(train_loader)  # Wrapping train_loader in tqdm to show progress bar for each epoch while training          
+            
           correct             = 0
           total               = 0
           train_losses        = []
@@ -59,7 +60,7 @@ class Train_loss:
               total           += len(images) # Getting count of processed images
               train_acc_batch = (correct/total)*100            
               pbar.set_description(desc=f'Train Loss = {loss.item()} Batch Id = {batch_idx} Train Accuracy = {train_acc_batch:0.2f}')
-              if self.scheduler and batch_idx % print_idx == 0:
+              if self.scheduler and print_idx != 0 and (batch_idx % print_idx == 0 or np.round(self.scheduler.get_last_lr()[0],6) == maxlr):
                  pbar.write(f"Learning Rate = {self.scheduler.get_last_lr()[0]:0.6f}")      
         
           train_acc.append(train_acc_batch)  # To capture only final batch accuracy of an epoch
