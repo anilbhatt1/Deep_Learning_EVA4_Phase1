@@ -230,7 +230,7 @@ class CIFAR10Net_S9(nn.Module):
         x = self.pool4(x)
         x = self.convblock7(self.convblock6(self.convblock5(x)))
         x = self.pool8(x)
-        x = self.convblock12(self.convblock11(self.convblock10(x)))
+        x = self.convblock11(self.convblock10(self.convblock9(x)))
         x = self.fc1(self.Gap1(x))
         x = x.view(-1, 10)
         return F.log_softmax(x, dim=-1)
