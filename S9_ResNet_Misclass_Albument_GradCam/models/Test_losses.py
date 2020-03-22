@@ -22,6 +22,10 @@ class Test_loss:
            test_accuracy  = 0 
            test_losses    = []
            test_acc       = []
+           predicted_class= []
+           actual_class   = []
+           wrong_predict  = []
+           count_wrong    = 0   
            
            with torch.no_grad():               # For test data, we won't do backprop, hence no need to capture gradients
                 for images,labels in test_loader:
@@ -32,6 +36,14 @@ class Test_loss:
                     labels_pred_max  = labels_pred.argmax(dim =1, keepdim = True)
                     correct          += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item()
                     total            += labels.size(0) 
+              
+                    if count_wrong   < 26:    # Capturing 26 wrongly predicted images with its predicted and actual class
+                       for i in range(len(labels_pred_max)):
+                            if labels_pred_max[i] != labels[i]:
+                                   wrong_predict.append(images[i])
+                                   predicted_class.append(labels_pred_max[i].item())
+                                   actual_class.append(labels[i].item())
+                                   count_wrong += 1
                 
                 test_loss   /= total  # Calculating overall test loss for the epoch
                 test_losses.append(test_loss)    
@@ -41,4 +53,4 @@ class Test_loss:
                
                 print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}\n' .format(test_loss, test_accuracy))
 
-           return test_losses, test_acc
+           return test_losses, test_acc, wrong_predict, predicted_class, actual_class
