@@ -9,10 +9,12 @@ from tqdm import tqdm
 # # class for Calculating and storing testing losses and testing accuracies of model for each epoch ## 
 class Test_loss:
 
-       def test_loss_calc(self,model, device, test_loader):
+       def test_loss_calc(self,model, device, test_loader, total_epoch, current_epoch):
            self.model        = model
            self.device       = device
-           self.test_loader  = test_loader  
+           self.test_loader  = test_loader
+           self.total_epoch  = total_epoch
+           self.current_epoch= current_epoch   
        
            model.eval()
            
@@ -37,8 +39,8 @@ class Test_loss:
                     correct          += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item()
                     total            += labels.size(0) 
               
-                    if count_wrong   < 26:    # Capturing 26 wrongly predicted images with its predicted and actual class
-                       for i in range(len(labels_pred_max)):
+                    if count_wrong   < 26 and current_epoch == (total_epoch - 1):  # Capturing 26 wrongly predicted images for last epoch
+                       for i in range(len(labels_pred_max)):                       # with its predicted and actual class
                             if labels_pred_max[i] != labels[i]:
                                    wrong_predict.append(images[i])
                                    predicted_class.append(labels_pred_max[i].item())
