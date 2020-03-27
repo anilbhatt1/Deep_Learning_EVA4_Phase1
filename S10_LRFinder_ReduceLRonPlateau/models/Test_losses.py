@@ -39,6 +39,10 @@ class Test_loss:
                     labels_pred_max  = labels_pred.argmax(dim =1, keepdim = True)
                     correct          += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item()
                     total            += labels.size(0) 
+              
+                    #if labels_pred_max == labels: 
+                    #   if labels.item() == 1:
+                    #        print
                     
                     for i in range(len(labels_pred_max)):                        
                         if labels_pred_max[i] != labels[i]:
@@ -52,6 +56,9 @@ class Test_loss:
                               print('labels_pred_max[i] :', labels_pred_max[i])
                               print('labels[i].shape :', labels[i].shape)
                               print('labels[i]:', labels[i])     
+                              x1 = labels[i].item()
+                              print('x1:',x1)
+                              print('type(x1):',type(x1))     
                 
                 test_loss   /= total  # Calculating overall test loss for the epoch
                 test_losses.append(test_loss)    
