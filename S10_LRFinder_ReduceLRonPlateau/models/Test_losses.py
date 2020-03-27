@@ -29,6 +29,9 @@ class Test_loss:
            wrong_predict  = []
            count_wrong    = 0 
            classwise_acc  = []
+           label_dict     = {0:0, 1:1, 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9}
+           label_total    = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0}
+           label_correct  = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0}   
            
            with torch.no_grad():               # For test data, we won't do backprop, hence no need to capture gradients
                 for images,labels in test_loader:
@@ -40,9 +43,11 @@ class Test_loss:
                     correct          += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item()
                     total            += labels.size(0) 
               
-                    #if labels_pred_max == labels: 
-                    #   if labels.item() == 1:
-                    #        print
+                    counter_key              = ' '
+                    counter_key              = label_dict.get(labels.item())                            
+                    label_total[counter_key] += 1
+                    if labels_pred_max       == labels:
+                       label_correct[counter_key] += 1     
                     
                     for i in range(len(labels_pred_max)):                        
                         if labels_pred_max[i] != labels[i]:
@@ -68,4 +73,4 @@ class Test_loss:
                
                 print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}\n' .format(test_loss, test_accuracy))
 
-           return test_losses, test_acc, wrong_predict, predicted_class, actual_class
+           return test_losses, test_acc, wrong_predict, predicted_class, actual_class, label_total, label_correct
