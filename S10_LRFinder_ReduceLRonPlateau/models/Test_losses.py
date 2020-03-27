@@ -52,7 +52,7 @@ class Test_loss:
                               actual_class.append(labels[i].item())
                               count_wrong += 1
                               print('count_wrong:',count_wrong)
-                              print('labels_pred_max[i].shape :', labels_pred_max[i])
+                              print('labels_pred_max[i].shape & type :', labels_pred_max[i], type(labels_pred_max[i]))
                               print('labels_pred_max[i] :', labels_pred_max[i])
                               print('labels[i].shape :', labels[i].shape)
                               print('labels[i]:', labels[i])     
