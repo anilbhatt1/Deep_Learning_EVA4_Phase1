@@ -27,7 +27,8 @@ class Test_loss:
            predicted_class= []
            actual_class   = []
            wrong_predict  = []
-           count_wrong    = 0   
+           count_wrong    = 0 
+           classwise_acc  = []
            
            with torch.no_grad():               # For test data, we won't do backprop, hence no need to capture gradients
                 for images,labels in test_loader:
@@ -38,14 +39,19 @@ class Test_loss:
                     labels_pred_max  = labels_pred.argmax(dim =1, keepdim = True)
                     correct          += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item()
                     total            += labels.size(0) 
-              
-                    if count_wrong   < 26 and current_epoch == (total_epoch - 1):  # Capturing 26 wrongly predicted images for last epoch
-                       for i in range(len(labels_pred_max)):                       # with its predicted and actual class
-                            if labels_pred_max[i] != labels[i]:
-                                   wrong_predict.append(images[i])
-                                   predicted_class.append(labels_pred_max[i].item())
-                                   actual_class.append(labels[i].item())
-                                   count_wrong += 1
+                    
+                    for i in range(len(labels_pred_max)):                        
+                        if labels_pred_max[i] != labels[i]:
+                           if count_wrong   < 5 and current_epoch == (total_epoch - 1):     # Capturing 26 wrongly predicted images for last epoch
+                              wrong_predict.append(images[i])                                # with its predicted and actual class 
+                              predicted_class.append(labels_pred_max[i].item())
+                              actual_class.append(labels[i].item())
+                              count_wrong += 1
+                              print('count_wrong:',count_wrong)
+                              print('labels_pred_max[i].shape :', labels_pred_max[i])
+                              print('labels_pred_max[i] :', labels_pred_max[i])
+                              print('labels[i].shape :', labels[i].shape)
+                              print('labels[i]:', labels[i])     
                 
                 test_loss   /= total  # Calculating overall test loss for the epoch
                 test_losses.append(test_loss)    
