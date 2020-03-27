@@ -1,6 +1,6 @@
 Convolutional neural network (ResNet-18 Architecture) on CIFAR10 dataset.
 
-**S8_Master Model_ResNet_CIFAR10.ipynb** - Main python module. Different classes are called in below order from this module. Model architecture used is ResNet-18. Model is not overfitting as we included various data augmentation transforms. ResNet-18 is a deeper architecture and hence to avoid overfitting more variety of images are required while training. More transforms helped in providing this variety thereby avaoiding overfitting.
+**S8_Improved_Model_ResNet_CIFAR10.ipynb** - Main python module. Different classes are called in below order from this module. Model architecture used is ResNet-18. Model is not overfitting as we included various data augmentation transforms. ResNet-18 is a deeper architecture and hence to avoid overfitting more variety of images are required while training. More transforms helped in providing this variety thereby avaoiding overfitting.
 
 - Datatransform.py -> This module stores data tranform class. There are 2 methods 
 
