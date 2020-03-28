@@ -28,25 +28,20 @@ class Test_loss:
            actual_class   = []
            wrong_predict  = []
            count_wrong    = 0 
-           i = 0
+           
            label_dict     = {0:0, 1:1, 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9}
            label_total    = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0}
            label_correct  = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0}   
                        
-           with torch.no_grad():               # For test data, we won't do backprop, hence no need to capture gradients
+           with torch.no_grad():                     # For test data, we won't do backprop, hence no need to capture gradients
                 for images,labels in test_loader:    # We are working in GPU, so 1 iteration will process 128 images(batch_size) in a go. Total 10,000/128 = 79 iterations will happen
  
-                    images,labels    = images.to(device),labels.to(device)
-                    labels_pred      = model(images)                                                            # Tensor with shape torch.Size([128, 10]) 
+                    images,labels    = images.to(device),labels.to(device)                                      # Images -> Tensor with shape torch.Size([128, 3, 32, 32])
+                    labels_pred      = model(images)                                                            # labels_pred -> Tensor with shape torch.Size([128, 10]) 
                     test_loss        += F.nll_loss(labels_pred, labels, reduction = 'sum').item()               # Use torch.Tensor.item() to get a Python number from a tensor containing a single value               
-                    labels_pred_max  = labels_pred.argmax(dim =1, keepdim = True)                               # Tensor with shape torch.Size([128, 1]). We are taking maximum value out of 10 from 'pred' tensor
+                    labels_pred_max  = labels_pred.argmax(dim =1, keepdim = True)                               # labels_pred_max -> Tensor with shape torch.Size([128, 1]). We are taking maximum value out of 10 from 'labels_pred' tensor
                     correct          += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item()        # labels -> Tensor with shape torch.Size([128]). We are changing shape of labels to ([128, 1]) for comparison purpose
-                    total            += labels.size(0)                                                          # Taking number of images in each batch size and accumulating it to get total images at end. Here labels.size(0)  = 128
-                    if i == 0:
-                       print('type(labels_pred), labels_pred.shape:', type(labels_pred), labels_pred.shape)
-                       print(labels_pred)
-                       print('images.shape:',images.shape)
-                    i += 1 
+                    total            += labels.size(0)                                                          # Taking number of labels in each batch size and accumulating it to get total images at end. Here labels.size(0)  = 128
                      
                     ''' labels_pred_max will look like below: torch.Size([128, 1])
                      ([[3],
@@ -59,18 +54,28 @@ class Test_loss:
                        labels will look like below: torch.Size([128])
                        ([3, 2, 5, 5, 0, 9,.....4, 4], device='cuda:0') 
                        
+                       labels_pred will look like below: torch.Size([128, 10])
+                       tensor([[-1.3098e+00, -5.1958e+00, -4.3112e+00,  ..., -6.5936e+00,
+                                -4.1666e-01, -4.0672e+00], -> 10 elements in each row
+                               [-7.6204e+00, -9.2902e+00, -4.8976e+00,  ..., -1.4079e-01,
+                                -9.6599e+00, -8.5457e+00],
+                                .
+                                .
+                               [-2.2386e+00, -3.1282e+00, -4.0142e+00,  ..., -2.4335e+00,
+                                -4.5057e+00, -1.2379e+00]], device='cuda:0') -> 128th row
+                      
                       * labels_pred_max.item() -> This will fail because torch.Tensor.item() is to get a Python number from a tensor containing a single value   
                       * labels.item() ->  This will fail because torch.Tensor.item() is to get a Python number from a tensor containing a single value
                       * labels_pred.item() ->  This will fail because torch.Tensor.item() is to get a Python number from a tensor containing a single value
                       * labels.view_as(labels_pred_max).item() -> This will fail because torch.Tensor.item() is to get a Python number from a tensor containing a single value
-                      * if labels_pred_max == labels:  -> This will fail beacuse we are comparing different shapes                   
-                      * if labels_pred_max[2] == labels[2]: -> This will work because we are gathering specific elements and comparing
+                      * if labels_pred_max == labels:  -> This will fail beacuse we are comparing different shapes                                        
                       * len(labels_pred_max) = 128 which is same as batch_size
-                      * if labels_pred_max[i] == labels[i]: -> This will work because we are gathering specific elements and comparing 
+                      * if labels_pred_max[i] == labels[i]: -> This will work because we are gathering specific elements and comparing
+                      * if labels_pred_max[2] == labels[2]: -> This will work because we are gathering specific elements and comparing
                       * labels_pred_max[i] -> Will look like tensor([5], device='cuda:0') 
                       * labels[i] -> Will look like tensor(2, device='cuda:0')
-                      * labels[i].item() -> Will be an integer 
-                      * labels_pred_max[i].item() -> Will be an integer
+                      * labels[i].item() -> Will work & return an integer
+                      * labels_pred_max[i].item() -> Will work & return an integer
                     '''
                                  
                     for i in range(len(labels_pred_max)):
@@ -86,9 +91,6 @@ class Test_loss:
                               predicted_class.append(labels_pred_max[i].item())
                               actual_class.append(labels[i].item())
                               count_wrong += 1
-                              print('count_wrong:',count_wrong)
-                              print('type(images[i]), type(labels_pred_max[i].item()), type(labels[i].item()):', type(images[i]), '|', type(labels_pred_max[i].item()), '|', type(labels[i].item()))     
-                              print('images[i].shape:', images[i].shape)
               
                 test_loss   /= total  # Calculating overall test loss for the epoch
                 test_losses.append(test_loss)    
