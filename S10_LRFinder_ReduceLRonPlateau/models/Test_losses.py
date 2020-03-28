@@ -28,7 +28,7 @@ class Test_loss:
            actual_class   = []
            wrong_predict  = []
            count_wrong    = 0 
- 
+           i = 0
            label_dict     = {0:0, 1:1, 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9}
            label_total    = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0}
            label_correct  = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0}   
@@ -42,7 +42,11 @@ class Test_loss:
                     labels_pred_max  = labels_pred.argmax(dim =1, keepdim = True)                               # Tensor with shape torch.Size([128, 1]). We are taking maximum value out of 10 from 'pred' tensor
                     correct          += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item()        # labels -> Tensor with shape torch.Size([128]). We are changing shape of labels to ([128, 1]) for comparison purpose
                     total            += labels.size(0)                                                          # Taking number of images in each batch size and accumulating it to get total images at end. Here labels.size(0)  = 128
-                    
+                    if i = 0:
+                       print('type(labels_pred), labels_pred.shape:', type(labels_pred), labels_pred.shape)
+                       print(labels_pred)
+                       print('images.shape:',images.shape)
+                     
                     ''' labels_pred_max will look like below: torch.Size([128, 1])
                      ([[3],
                        [0],
@@ -70,17 +74,20 @@ class Test_loss:
                                  
                     for i in range(len(labels_pred_max)):
                         counter_key = ' '
-                        counter_key = label_dict.get(labels[i].item())  
-                        label_total[counter_key] += 1 
+                        counter_key = label_dict.get(labels[i].item())   # Getting labels from 'label_dict'
+                        label_total[counter_key] += 1                    # Increasing total count of corresponding label
                             
                         if labels_pred_max[i] == labels[i]:
-                           label_correct[counter_key] += 1  
+                           label_correct[counter_key] += 1               # Increasing correct count of corresponding label
                         else:    
                            if count_wrong   < 26 and current_epoch == (total_epoch - 1):     # Capturing 26 wrongly predicted images for last epoch
                               wrong_predict.append(images[i])                                # with its predicted and actual class 
                               predicted_class.append(labels_pred_max[i].item())
                               actual_class.append(labels[i].item())
-                              count_wrong += 1                                                
+                              count_wrong += 1
+                              print('count_wrong:',count_wrong)
+                              print('images[i].shape, labels_pred_max[i].item().shape, labels[i].item().shape:', images[i].shape, '|', labels_pred_max[i].item().shape, '|', labels[i].item().shape)
+                              print('type(images[i]), type(labels_pred_max[i].item()), type(labels[i].item()):', type(images[i]), '|', type(labels_pred_max[i].item()), '|', type(labels[i].item()))     
               
                 test_loss   /= total  # Calculating overall test loss for the epoch
                 test_losses.append(test_loss)    
