@@ -63,7 +63,7 @@ class Test_loss:
                        print('labels_pred_max[2] == labels[2] :', labels_pred_max[2], '|', labels[2])
                        label_correct[counter_key] += 1     
                     else:  
-                      print('labels_pred_max[2] == labels[2] :', labels_pred_max[2], '|',labels[2])
+                      print('labels_pred_max[2] != labels[2] :', labels_pred_max[2], '|',labels[2])
                             
                     for i in range(len(labels_pred_max)):                        
                         if labels_pred_max[i] != labels[i]:
