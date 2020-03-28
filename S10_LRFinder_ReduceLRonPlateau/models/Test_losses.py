@@ -43,14 +43,14 @@ class Test_loss:
                     correct          += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item()
                     total            += labels.size(0) 
                     
-                    print('labels_pred_max - Type & shape:', type(labels_pred_max), '|', labels_pred_max.shape)
-                    print('labels - Type & shape:', type(labels), '|', labels.shape)
-                    print('labels_pred_max.item() - Type & shape:', type(labels_pred_max.item()), '|',labels_pred_max.item().shape)
-                    print('labels.item() - Type & shape:', type(labels.item()),'|', labels.item().shape)
-                    print('labels_pred - Type & shape:', type(labels_pred),'|', labels_pred.shape)
-                    print('labels_pred.item() - Type & shape:', type(labels_pred.item()),'|', labels_pred.item().shape)
-                    print('labels.view_as(labels_pred_max) - Type & shape:', type(labels.view_as(labels_pred_max)),'|', labels.view_as(labels_pred_max).shape) 
-                    print('labels.view_as(labels_pred_max).item() - Type & shape:', type(labels.view_as(labels_pred_max).item()),'|', labels.view_as(labels_pred_max).item().shape)
+                    print('labels_pred_max - Type, shape, len:', type(labels_pred_max), '|', labels_pred_max.shape, '|', len(labels_pred_max))
+                    print('labels - Type, shape, len:', type(labels), '|', labels.shape, '|', len(labels))
+                    #print('labels_pred_max.item() - Type, shape, len:', type(labels_pred_max.item()), '|',labels_pred_max.item().shape)
+                    #print('labels.item() - Type, shape, len:', type(labels.item()),'|', labels.item().shape, '|', len(labels))
+                    print('labels_pred - Type, shape, len:', type(labels_pred),'|', labels_pred.shape, '|', len(labels_pred))
+                    #print('labels_pred.item() - Type & shape:', type(labels_pred.item()),'|', labels_pred.item().shape)
+                    print('labels.view_as(labels_pred_max) - Type, shape, len:', type(labels.view_as(labels_pred_max)),'|', labels.view_as(labels_pred_max).shape, len(labels.view_as(labels_pred_max))) 
+                    #print('labels.view_as(labels_pred_max).item() - Type & shape:', type(labels.view_as(labels_pred_max).item()),'|', labels.view_as(labels_pred_max).item().shape)
               
                     counter_key              = ' '
                     counter_key              = label_dict.get(labels.item())             #labels,labels_pred_max -> Tensors               
