@@ -49,13 +49,16 @@ class Test_loss:
                     #print('labels.item() - Type, shape, len:', type(labels.item()),'|', labels.item().shape, '|', len(labels))
                     print('labels_pred - Type, shape, len:', type(labels_pred),'|', labels_pred.shape, '|', len(labels_pred))
                     #print('labels_pred.item() - Type & shape:', type(labels_pred.item()),'|', labels_pred.item().shape)
-                    print('labels.view_as(labels_pred_max) - Type, shape, len:', type(labels.view_as(labels_pred_max)),'|', labels.view_as(labels_pred_max).shape, len(labels.view_as(labels_pred_max))) 
+                    print('labels.view_as(labels_pred_max) - Type, shape, len:', type(labels.view_as(labels_pred_max)),'|', labels.view_as(labels_pred_max).shape, '|' len(labels.view_as(labels_pred_max))) 
                     #print('labels.view_as(labels_pred_max).item() - Type & shape:', type(labels.view_as(labels_pred_max).item()),'|', labels.view_as(labels_pred_max).item().shape)
+                    print('labels_pred_max:',labels_pred_max)
+                    print('labels:',labels) 
               
                     counter_key              = ' '
-                    counter_key              = label_dict.get(labels.item())             #labels,labels_pred_max -> Tensors               
-                    label_total[counter_key] += 1                                        #labels.item(),labels_pred_max.item() -> integer
+                    #counter_key              = label_dict.get(labels.item())             #labels,labels_pred_max -> Tensors               
+                    label_total[counter_key] += 1                                         #labels.item(),labels_pred_max.item() -> integer
                     if labels_pred_max       == labels:
+                       print('Matching')
                        label_correct[counter_key] += 1     
                     
                     for i in range(len(labels_pred_max)):                        
@@ -65,14 +68,15 @@ class Test_loss:
                               predicted_class.append(labels_pred_max[i].item())
                               actual_class.append(labels[i].item())
                               count_wrong += 1
-                              #print('count_wrong:',count_wrong)
-                              #print('labels_pred_max[i].shape & type :', labels_pred_max[i], type(labels_pred_max[i]))
-                              #print('labels_pred_max[i] :', labels_pred_max[i])
-                              #print('labels[i].shape :', labels[i].shape)
-                              #print('labels[i]:', labels[i])     
-                              #x1 = labels[i].item()
-                              #print('x1:',x1)
-                              #print('type(x1):',type(x1))     
+                              print('count_wrong:',count_wrong)
+                              print('labels_pred_max[i].shape & type :', labels_pred_max[i], '|', type(labels_pred_max[i]))
+                              print('labels_pred_max[i] :', labels_pred_max[i])
+                              print('labels[i].shape & type :', labels[i].shape, '|', type(labels[i]))
+                              print('labels[i]:', labels[i])     
+                              print('labels[i].item():',labels[i].item())
+                              print('type(labels[i].item()):',type(labels[i].item()))
+                              print('labels_pred_max[i].item():',labels_pred_max[i].item())
+                              print('type(labels_pred_max[i].item()):',type(labels_pred_max[i].item()))         
                 
                 test_loss   /= total  # Calculating overall test loss for the epoch
                 test_losses.append(test_loss)    
