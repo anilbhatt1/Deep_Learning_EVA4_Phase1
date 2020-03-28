@@ -54,7 +54,7 @@ class Test_loss:
                     print('labels_pred_max:',labels_pred_max)
                     print('labels:',labels) 
               
-                    counter_key              = ' '
+                    counter_key              = 3
                     #counter_key              = label_dict.get(labels.item())             #labels,labels_pred_max -> Tensors               
                     label_total[counter_key] += 1                                         #labels.item(),labels_pred_max.item() -> integer
                     if labels_pred_max       == labels:
