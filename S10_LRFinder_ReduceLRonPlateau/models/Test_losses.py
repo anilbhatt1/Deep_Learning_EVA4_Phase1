@@ -61,6 +61,11 @@ class Test_loss:
                       * if labels_pred_max == labels:  -> This will fail beacuse we are comparing different shapes                   
                       * if labels_pred_max[2] == labels[2]: -> This will work because we are gathering specific elements and comparing
                       * len(labels_pred_max) = 128 which is same as batch_size
+                      * if labels_pred_max[i] == labels[i]: -> This will work because we are gathering specific elements and comparing 
+                      * labels_pred_max[i] -> Will look like tensor([5], device='cuda:0') 
+                      * labels[i] -> Will look like tensor(2, device='cuda:0')
+                      * labels[i].item() -> Will be an integer 
+                      * labels_pred_max[i].item() -> Will be an integer
                     '''
                                  
                     for i in range(len(labels_pred_max)):
@@ -75,8 +80,7 @@ class Test_loss:
                               wrong_predict.append(images[i])                                # with its predicted and actual class 
                               predicted_class.append(labels_pred_max[i].item())
                               actual_class.append(labels[i].item())
-                              count_wrong += 1
-                                                 
+                              count_wrong += 1                                                
               
                 test_loss   /= total  # Calculating overall test loss for the epoch
                 test_losses.append(test_loss)    
