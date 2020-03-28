@@ -28,7 +28,7 @@ class Test_loss:
            actual_class   = []
            wrong_predict  = []
            count_wrong    = 0 
-           
+           i              = 0
            label_dict     = {0:0, 1:1, 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9}
            label_total    = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0}
            label_correct  = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0}   
@@ -42,7 +42,9 @@ class Test_loss:
                     labels_pred_max  = labels_pred.argmax(dim =1, keepdim = True)
                     correct          += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item()
                     total            += labels.size(0) 
+                    i                += 1
                     
+                    print('i:', i)
                     print('labels_pred_max - Type, shape, len:', type(labels_pred_max), '|', labels_pred_max.shape, '|', len(labels_pred_max))
                     print('labels - Type, shape, len:', type(labels), '|', labels.shape, '|', len(labels))
                     #print('labels_pred_max.item() - Type, shape, len:', type(labels_pred_max.item()), '|',labels_pred_max.item().shape)
@@ -57,10 +59,12 @@ class Test_loss:
                     counter_key              = 3
                     #counter_key              = label_dict.get(labels.item())             #labels,labels_pred_max -> Tensors               
                     label_total[counter_key] += 1                                         #labels.item(),labels_pred_max.item() -> integer
-                    if labels_pred_max       == labels:
-                       print('Matching')
+                    if labels_pred_max[2]     == labels[2]:
+                       print('labels_pred_max[2] == labels[2] :', labels_pred_max[2], '|', labels[2])
                        label_correct[counter_key] += 1     
-                    
+                    else:  
+                      print('labels_pred_max[2] == labels[2] :', labels_pred_max[2], '|',labels[2])
+                            
                     for i in range(len(labels_pred_max)):                        
                         if labels_pred_max[i] != labels[i]:
                            if count_wrong   < 5 and current_epoch == (total_epoch - 1):     # Capturing 26 wrongly predicted images for last epoch
