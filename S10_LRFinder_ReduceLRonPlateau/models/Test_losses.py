@@ -42,10 +42,11 @@ class Test_loss:
                     labels_pred_max  = labels_pred.argmax(dim =1, keepdim = True)                               # Tensor with shape torch.Size([128, 1]). We are taking maximum value out of 10 from 'pred' tensor
                     correct          += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item()        # labels -> Tensor with shape torch.Size([128]). We are changing shape of labels to ([128, 1]) for comparison purpose
                     total            += labels.size(0)                                                          # Taking number of images in each batch size and accumulating it to get total images at end. Here labels.size(0)  = 128
-                    if i = 0:
+                    if i = 1:
                        print('type(labels_pred), labels_pred.shape:', type(labels_pred), labels_pred.shape)
                        print(labels_pred)
                        print('images.shape:',images.shape)
+                    i += 1 
                      
                     ''' labels_pred_max will look like below: torch.Size([128, 1])
                      ([[3],
