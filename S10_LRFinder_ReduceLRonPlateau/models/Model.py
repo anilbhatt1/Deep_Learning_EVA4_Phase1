@@ -148,6 +148,8 @@ class ResNet(nn.Module):
 def ResNet18():
     return ResNet(BasicBlock, [2,2,2,2])
 
+# Model for training CIFAR10 with normal 3x3 convolutions. Used for S9 Quiz
+
 class CIFAR10Net_S9(nn.Module):
 
     def __init__(self):
