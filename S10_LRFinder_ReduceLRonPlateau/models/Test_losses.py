@@ -78,7 +78,7 @@ class Test_loss:
                       * labels_pred_max[i].item() -> Will work & return an integer
                     '''
                     
-                    if current_epoch >= (total epoch - 3): 
+                    if current_epoch >= (total_epoch - 3): 
                            for i in range(len(labels_pred_max)):
                                counter_key = ' '
                                counter_key = label_dict.get(labels[i].item())   # Getting labels from 'label_dict'
