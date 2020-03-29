@@ -115,7 +115,7 @@ def GRADCAM(images, labels, model, target_layers):
 def PLOT(gcam_layers, images, labels, target_layers, class_names, image_size, predicted, unnormalize):
     c = len(images)+1
     r = len(target_layers)+2
-    fig = plt.figure(figsize=(32,14))
+    fig = plt.figure(figsize=(20,20))
     fig.subplots_adjust(hspace=0.01, wspace=0.01)
     ax = plt.subplot(r, c, 1)
     ax.text(0.3,-0.5, "INPUT", fontsize=14)
@@ -127,7 +127,8 @@ def PLOT(gcam_layers, images, labels, target_layers, class_names, image_size, pr
       plt.axis('off')
 
       for j in range(len(images)):
-        img = np.uint8(255*unnormalize(images[j].view(image_size)))
+        #img = np.uint8(255*unnormalize(images[j].view(image_size)))
+        img = np.uint8(unnormalize(images[j].view(image_size)))
         if i==0:
           ax = plt.subplot(r, c, j+2)
           ax.text(0, 0.2, f"pred={class_names[predicted[j][0]]}\n[actual={class_names[labels[j]]}]", fontsize=14)
@@ -138,7 +139,8 @@ def PLOT(gcam_layers, images, labels, target_layers, class_names, image_size, pr
           
         
         heatmap = 1-gcam_layers[i][j].cpu().numpy()[0] # reverse the color map
-        heatmap = np.uint8(255 * heatmap)
+        #heatmap = np.uint8(255 * heatmap)
+        heatmap = np.uint8(heatmap)
         heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)
         superimposed_img = cv2.resize(cv2.addWeighted(img, 0.5, heatmap, 0.5, 0), (128,128))
         plt.subplot(r, c, (i+2)*c+j+2)
