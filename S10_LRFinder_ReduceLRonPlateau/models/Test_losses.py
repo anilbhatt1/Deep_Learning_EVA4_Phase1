@@ -78,7 +78,7 @@ class Test_loss:
                       * labels_pred_max[i].item() -> Will work & return an integer
                     '''
                     
-                    if current_epoch >= (total_epoch - 3): 
+                    if current_epoch == (total_epoch - 1): 
                            for i in range(len(labels_pred_max)):
                                counter_key = ' '
                                counter_key = label_dict.get(labels[i].item())   # Getting labels from 'label_dict'
@@ -87,7 +87,7 @@ class Test_loss:
                                if labels_pred_max[i] == labels[i]:
                                   label_correct[counter_key] += 1               # Increasing correct count of corresponding label
                                else:    
-                                  if count_wrong   < 26 and current_epoch == (total_epoch - 1):     # Capturing 26 wrongly predicted images for last epoch
+                                  if count_wrong   < 26:                                            # Capturing 26 wrongly predicted images for last epoch
                                      wrong_predict.append(images[i])                                # with its predicted and actual class 
                                      predicted_class.append(labels_pred_max[i].item())
                                      actual_class.append(labels[i].item())
