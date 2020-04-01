@@ -130,8 +130,8 @@ def PLOT(gcam_layers, images, labels, target_layers, class_names, image_size, pr
         img = np.uint8(255*unnormalize(images[j].view(image_size)))
         #img = np.uint8(unnormalize(images[j].view(image_size)))
         if i==0:
-          ax = plt.subplot(r, c, j+2)
-          ax.text(0, 0.2, f"pred={class_names[predicted[j][0]]}\n[actual={class_names[labels[j]]}]", fontsize=14)
+          ax = plt.subplot(r, c, j+2)          
+          ax.text(0, 0.2, f"p={class_names[predicted[j][0]]}\na={class_names[labels[j]]}", fontsize=10)  
           plt.axis('off')
           plt.subplot(r, c, c+j+2)
           plt.imshow(img, interpolation='bilinear')
