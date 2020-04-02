@@ -9,14 +9,15 @@ from tqdm import tqdm
 # # class for Calculating and storing training losses and training accuracies of model for each batch per epoch ## 
 class Train_loss:
         
-      def train_loss_calc(self,model, device, train_loader, optimizer, epoch, factor, scheduler =None, print_idx=0, maxlr=0):
+      def train_loss_calc(self,model, device, train_loader, optimizer, epoch, factor, criterion, scheduler =None, print_idx=0, maxlr=0):
             
           self.model        = model
           self.device       = device
           self.train_loader = train_loader
           self.optimizer    = optimizer   
           self.epoch        = epoch
-          self.factor       = factor   
+          self.factor       = factor
+          self.criterion    = criterion      
           self.scheduler    = scheduler
           self.print_idx    = print_idx
           self.maxlr        = maxlr      
@@ -36,7 +37,7 @@ class Train_loss:
               images, labels = images.to(device), labels.to(device)   # Moving images and correspondig labels to GPU
               optimizer.zero_grad()  # Zeroing out gradients at start of each batch so that backpropagation won't take accumulated value
               labels_pred = model(images)  # Calling CNN model to predict the images
-              loss = F.nll_loss(labels_pred, labels)   # Calculating Negative Likelihood Loss by comparing prediction vs ground truth
+              loss = criterion(labels_pred, labels)   # Calculating Negative Likelihood Loss by comparing prediction vs ground truth
               
               # Applying L1 regularization to the training loss calculated
               L1_criterion = nn.L1Loss(size_average = None, reduce = None, reduction = 'mean')
