@@ -145,7 +145,7 @@ class ResNet(nn.Module):
         out = out.view(out.size(0), -1)
         return F.log_softmax(out, dim=-1)
             
-def ResNet18():
+def ResNet_18():
     return ResNet(BasicBlock, [2,2,2,2])
 
 # Model for training CIFAR10 with normal 3x3 convolutions. Used for S9 Quiz
@@ -296,6 +296,6 @@ class ResNet(nn.Module):
         out = out.view(out.size(0), -1)
         return out
             
-def ResNet_18():
+def ResNet18():
     return ResNet(BasicBlock, [2,2,2,2])
     
