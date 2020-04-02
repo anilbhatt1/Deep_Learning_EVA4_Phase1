@@ -39,7 +39,8 @@ class Test_loss:
  
                     images,labels    = images.to(device),labels.to(device)                                      # Images -> Tensor with shape torch.Size([128, 3, 32, 32])
                     labels_pred      = model(images)                                                            # labels_pred -> Tensor with shape torch.Size([128, 10]) 
-                    test_loss        += criterion(labels_pred, labels, reduction = 'sum').item()                # Use torch.Tensor.item() to get a Python number from a tensor containing a single value               
+                    #test_loss       += criterion(labels_pred, labels, reduction = 'sum').item()                # Use torch.Tensor.item() to get a Python number from a tensor containing a single value              
+                    test_loss        += criterion(labels_pred, labels).item()                                   # Use torch.Tensor.item() to get a Python number from a tensor containing a single value                
                     labels_pred_max  = labels_pred.argmax(dim =1, keepdim = True)                               # labels_pred_max -> Tensor with shape torch.Size([128, 1]). We are taking maximum value out of 10 from 'labels_pred' tensor
                     correct          += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item()        # labels -> Tensor with shape torch.Size([128]). We are changing shape of labels to ([128, 1]) for comparison purpose
                     total            += labels.size(0)                                                          # Taking number of labels in each batch size and accumulating it to get total images at end. Here labels.size(0)  = 128
