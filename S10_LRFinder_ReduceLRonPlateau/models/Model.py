@@ -294,7 +294,7 @@ class ResNet(nn.Module):
         out = self.Gap1(out)
         out = self.fc(out)
         out = out.view(out.size(0), -1)
-        return F.log_softmax(out, dim=-1)
+        return out
             
 def ResNet_18():
     return ResNet(BasicBlock, [2,2,2,2])
