@@ -351,9 +351,10 @@ class LRFinder(object):
             lrs_disp    = lrs
             num_lr      = 3
             min_loss    = ' '
+            print('Total Observations: ', len(losses_disp))
             for i in range(num_lr):
                 indx = losses_disp.index(min(losses_disp))
-                print('# ', i+1 , ' - Least Loss & its corresponding LR:', losses_disp[indx], 'lr: ', lrs_disp[indx])
+                print('# ', i+1 , ' - Least Loss : ', losses_disp[indx], 'Its corresponding LR: ', lrs_disp[indx])
                 losses_disp.pop(indx)
                 lrs_disp.pop(indx)      
 
