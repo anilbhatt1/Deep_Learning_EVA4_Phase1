@@ -293,7 +293,7 @@ class LRFinder(object):
 
         return running_loss / len(dataloader.dataset)
 
-    def plot(self, skip_start=10, skip_end=5, log_lr=True, show_lr=None, ax=None):
+    def plot(self, skip_start=10, skip_end=5, log_lr=True, show_lr=None, ax=None, disp=True):
         """Plots the learning rate range test.
         Arguments:
             skip_start (int, optional): number of batches to trim from the start.
@@ -308,6 +308,7 @@ class LRFinder(object):
                 matplotlib axes object and the figure is not be shown. If `None`, then
                 the figure and axes object are created in this method and the figure is
                 shown . Default: None.
+            disp: If True displays 3 LR values for which loss was minimum     
         Returns:
             The matplotlib.axes.Axes object that contains the plot.
         """
@@ -344,6 +345,17 @@ class LRFinder(object):
 
         if show_lr is not None:
             ax.axvline(x=show_lr, color="red")
+            
+        if disp:
+            losses_disp = losses
+            lrs_disp    = lrs
+            num_lr      = 3
+            min_loss    = ' '
+            for i in range(num_lr):
+                indx = losses_disp.index(min(losses_disp))
+                print('# ', i+1 , ' - Least Loss & its corresponding LR:', losses_disp[indx], 'lr: ', lrs_disp[indx])
+                losses_disp.pop(indx)
+                lrs_disp.pop(indx)      
 
         # Show only if the figure was created internally
         if fig is not None:
