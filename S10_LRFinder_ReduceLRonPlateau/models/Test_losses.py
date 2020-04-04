@@ -5,6 +5,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 import numpy as np
 from tqdm import tqdm
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 
 # # class for Calculating and storing testing losses and testing accuracies of model for each epoch ## 
 class Test_loss:
@@ -99,7 +100,19 @@ class Test_loss:
                 test_losses.append(test_loss)    
                                   
                 test_accuracy =  (correct/total)* 100
-                test_acc.append(test_accuracy)             
+                test_acc.append(test_accuracy)       
+                
+                # Below section of displays is to see if loss is decreasing or not. If loss is not decreasing for 'patient' number
+                # of epochs, then we hit a plateau and lr need to be reduced by 'factor' using ReduceLROnPlateau algorithm.     
+              
+                if self.scheduler and isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
+                   loss_decrease = 0
+                   loss_decrease = test_losses[-2] - test_losses[-1]
+                   print('Test Loss Trend Check-> Prev Test Loss: ', test_losses[-2], ' Latest Test Loss: ',test_losses[-1])
+                   if loss_decrease > 0:
+                      print('Test Loss Decreasing - Prev Loss:', test_losses[-2], ' Latest Loss:',test_losses[-1], 'Delta:',loss_decrease)     
+                   else: 
+                      print('Test Loss Increasing - Prev Loss:', test_losses[-2], ' Latest Loss:',test_losses[-1], 'Delta:',loss_decrease)    
                
                 print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}\n' .format(test_loss, test_accuracy))
 
