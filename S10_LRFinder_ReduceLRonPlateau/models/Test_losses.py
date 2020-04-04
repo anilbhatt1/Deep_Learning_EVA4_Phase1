@@ -113,6 +113,6 @@ class Test_loss:
                 else:
                    lr = self.optimizer.param_groups[0]['lr']     
                              
-                print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}, LR : {:.6f}\n' .format(test_loss, test_accuracy, lr))
+                print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}, LR : {:.6f}' .format(test_loss, test_accuracy, lr))
 
            return test_losses, test_acc, wrong_predict, predicted_class, actual_class, label_total, label_correct
