@@ -20,7 +20,8 @@ class Train_loss:
           self.criterion    = criterion      
           self.scheduler    = scheduler
           self.print_idx    = print_idx
-          self.maxlr        = maxlr      
+          self.maxlr        = maxlr    
+          self.metric       = 0      
           
           model.train()
           pbar = tqdm(train_loader)  # Wrapping train_loader in tqdm to show progress bar for each epoch while training          
@@ -56,13 +57,23 @@ class Train_loss:
               #lr = self.scheduler.get_last_lr()[0] if self.scheduler else (self.optimizer.lr_scheduler.get_last_lr()[0] if self.optimizer.lr_scheduler else self.optimizer.param_groups[0]['lr'])
               
               lr = 0
+              print('self.scheduler:',self.scheduler,'scheduler:',scheduler)
+              print(isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau)
+              print('lr - self.scheduler.get_last_lr()[0]:', self.scheduler.get_last_lr()[0])      
+              print('batch_idx:',batch_idx)
+              print('self.optimizer:',self.optimizer,'optimizer:',optimizer)
+              print('self.optimizer.lr_policy:', self.optimizer.lr_policy)   
+              if self.scheduler:   # this is for batchwise lr update
+                 print('Entering steps:',self.scheduler)   
+                 self.scheduler.step() 
+                    
               if self.scheduler:
                  lr = self.scheduler.get_last_lr()[0]
               else:
                  lr = self.optimizer.param_groups[0]['lr']                
                 
-              if self.scheduler:   # this is for batchwise lr update
-                 self.scheduler.step()    
+              #if self.scheduler:   # this is for batchwise lr update
+              #   self.scheduler.step(self.metric)    
                         
               # Calculating accuracies
               labels_pred_max = labels_pred.argmax(dim = 1, keepdim = True) # Getting the index of max log probablity predicted by model
