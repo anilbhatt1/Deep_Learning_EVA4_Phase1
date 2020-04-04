@@ -52,20 +52,22 @@ class Train_loss:
               loss.backward()
               optimizer.step()
               
-              lr = self.scheduler.get_last_lr()[0] if self.scheduler else (self.optimizer.lr_scheduler.get_last_lr()[0] if self.optimizer.lr_scheduler else self.optimizer.param_groups[0]['lr'])
-              if self.scheduler:
+              # This was used for OneCycle LR policy. 'get_last_lr()' giving error while using ReduceLRonPlateau hence commenting out 
+              #lr = self.scheduler.get_last_lr()[0] if self.scheduler else (self.optimizer.lr_scheduler.get_last_lr()[0] if self.optimizer.lr_scheduler else self.optimizer.param_groups[0]['lr'])
+              
+              if self.scheduler:   # this is for batchwise lr update
                  self.scheduler.step()    
+                        
               # Calculating accuracies
               labels_pred_max = labels_pred.argmax(dim = 1, keepdim = True) # Getting the index of max log probablity predicted by model
               correct         += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item() # Getting count of correctly predicted
               total           += len(images) # Getting count of processed images
               train_acc_batch = (correct/total)*100            
-              pbar.set_description(desc=f'Train Loss = {loss.item()} Batch Id = {batch_idx} Train Accuracy = {train_acc_batch:0.2f} Learning Rate = {self.scheduler.get_last_lr()[0]:0.6f}')
-                                          
-              if self.scheduler and print_idx != 0 and \
-                 (batch_idx % print_idx == 0 or np.round(self.scheduler.get_last_lr()[0],6) == maxlr):
-                 pbar.write(f"Learning Rate(lr) = {self.scheduler.get_last_lr()[0]:0.6f}")      
-        
+              lr_display = optimizer.param_groups[0]['lr']
+              pbar.set_description(desc=f'Train Loss = {loss.item()} Batch Id = {batch_idx} Train Accuracy = {train_acc_batch:0.2f} \
+                                   Learning Rate = {self.scheduler.get_last_lr()[0]:0.6f} LR = lr_display')
+                                        
+     
           train_acc.append(train_acc_batch)  # To capture only final batch accuracy of an epoch
           train_losses.append(loss)          # To capture only final batch loss of an epoch
         
