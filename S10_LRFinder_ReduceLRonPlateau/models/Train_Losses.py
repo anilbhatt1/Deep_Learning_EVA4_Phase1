@@ -57,12 +57,12 @@ class Train_loss:
               #lr = self.scheduler.get_last_lr()[0] if self.scheduler else (self.optimizer.lr_scheduler.get_last_lr()[0] if self.optimizer.lr_scheduler else self.optimizer.param_groups[0]['lr'])
               
               lr = 0
-              print('self.scheduler:',self.scheduler,'scheduler:',scheduler)
+              print('self.scheduler:', self.scheduler,'scheduler:', scheduler)
               print(isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau))                 
-              print('batch_idx:',batch_idx)
+              print('batch_idx:', batch_idx)
               print('self.optimizer:',self.optimizer,'optimizer:',optimizer)
               print('self.optimizer.lr_policy:', self.optimizer.lr_policy)   
-              print('self.optimizer.param_groups[0]['lr']:',self.optimizer.param_groups[0]['lr'])
+              print('self.optimizer.param_groups[0][lr]:', self.optimizer.param_groups[0]['lr'])
         
               if self.scheduler:   # this is for batchwise lr update
                  print('Entering steps:',self.scheduler)   
