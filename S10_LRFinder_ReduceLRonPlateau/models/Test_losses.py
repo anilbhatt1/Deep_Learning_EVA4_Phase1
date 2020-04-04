@@ -10,13 +10,15 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 # # class for Calculating and storing testing losses and testing accuracies of model for each epoch ## 
 class Test_loss:
 
-       def test_loss_calc(self,model, device, test_loader, total_epoch, current_epoch, criterion):
+       def test_loss_calc(self,model, device, test_loader, optimizer, total_epoch, current_epoch, criterion, scheduler):
            self.model        = model
            self.device       = device
            self.test_loader  = test_loader
+           self.optimizer    = optimizer
            self.total_epoch  = total_epoch
            self.current_epoch= current_epoch
            self.criterion    = criterion
+           self.scheduler    = scheduler
        
            model.eval()
            
@@ -40,7 +42,7 @@ class Test_loss:
  
                     images,labels    = images.to(device),labels.to(device)                                      # Images -> Tensor with shape torch.Size([128, 3, 32, 32])
                     labels_pred      = model(images)                                                            # labels_pred -> Tensor with shape torch.Size([128, 10]) 
-                    #test_loss       += criterion(labels_pred, labels, reduction = 'sum').item()                # Use torch.Tensor.item() to get a Python number from a tensor containing a single value              
+                    #test_loss       += criterion(labels_pred, labels, reduction = 'sum').item()                # 'reduction = sum' works only for F.NLL_LOSS not for Cross_Entropy. Hence commenting out            
                     test_loss        += criterion(labels_pred, labels).item()                                   # Use torch.Tensor.item() to get a Python number from a tensor containing a single value                
                     labels_pred_max  = labels_pred.argmax(dim =1, keepdim = True)                               # labels_pred_max -> Tensor with shape torch.Size([128, 1]). We are taking maximum value out of 10 from 'labels_pred' tensor
                     correct          += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item()        # labels -> Tensor with shape torch.Size([128]). We are changing shape of labels to ([128, 1]) for comparison purpose
@@ -100,20 +102,17 @@ class Test_loss:
                 test_losses.append(test_loss)    
                                   
                 test_accuracy =  (correct/total)* 100
-                test_acc.append(test_accuracy)       
+                test_acc.append(test_accuracy)      
                 
-                # Below section of displays is to see if loss is decreasing or not. If loss is not decreasing for 'patient' number
-                # of epochs, then we hit a plateau and lr need to be reduced by 'factor' using ReduceLROnPlateau algorithm.     
-              
-                if self.scheduler and isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
-                   loss_decrease = 0
-                   loss_decrease = test_losses[-2] - test_losses[-1]
-                   print('Test Loss Trend Check-> Prev Test Loss: ', test_losses[-2], ' Latest Test Loss: ',test_losses[-1])
-                   if loss_decrease > 0:
-                      print('Test Loss Decreasing - Prev Loss:', test_losses[-2], ' Latest Loss:',test_losses[-1], 'Delta:',loss_decrease)     
-                   else: 
-                      print('Test Loss Increasing - Prev Loss:', test_losses[-2], ' Latest Loss:',test_losses[-1], 'Delta:',loss_decrease)    
+                #'scheduler.step' is required to update LR while using a scheduler like ReduceLROnPlateau. Here metric used is 'test_loss'
+                scheduler.step(test_loss)   
                
-                print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}\n' .format(test_loss, test_accuracy))
+                lr = 0 
+                if scheduler and not isinstance(scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
+                   lr = self.scheduler.get_last_lr()[0]           # Won't work for ReduceLROnPlateau
+                else:
+                   lr = self.optimizer.param_groups[0]['lr']     
+                             
+                print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}, LR : {:.6f}\n' .format(test_loss, test_accuracy, lr))
 
            return test_losses, test_acc, wrong_predict, predicted_class, actual_class, label_total, label_correct
