@@ -55,6 +55,12 @@ class Train_loss:
               # This was used for OneCycle LR policy. 'get_last_lr()' giving error while using ReduceLRonPlateau hence commenting out 
               #lr = self.scheduler.get_last_lr()[0] if self.scheduler else (self.optimizer.lr_scheduler.get_last_lr()[0] if self.optimizer.lr_scheduler else self.optimizer.param_groups[0]['lr'])
               
+              lr = 0
+              if self.scheduler:
+                 lr = self.scheduler.get_last_lr()[0]
+              else:
+                 lr = self.optimizer.param_groups[0]['lr']                
+                
               if self.scheduler:   # this is for batchwise lr update
                  self.scheduler.step()    
                         
