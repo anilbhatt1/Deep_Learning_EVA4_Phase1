@@ -5,6 +5,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 import numpy as np
 from tqdm import tqdm
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 
 # # class for Calculating and storing training losses and training accuracies of model for each batch per epoch ## 
 class Train_loss:
@@ -57,35 +58,17 @@ class Train_loss:
               #lr = self.scheduler.get_last_lr()[0] if self.scheduler else (self.optimizer.lr_scheduler.get_last_lr()[0] if self.optimizer.lr_scheduler else self.optimizer.param_groups[0]['lr'])
               
               lr = 0
-              print('self.scheduler:', self.scheduler,'scheduler:', scheduler)
-              print(isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau))                 
-              print('batch_idx:', batch_idx)
-              print('self.optimizer:',self.optimizer,'optimizer:',optimizer)
-              print('self.optimizer.lr_policy:', self.optimizer.lr_policy)   
-              print('self.optimizer.param_groups[0][lr]:', self.optimizer.param_groups[0]['lr'])
-        
-              if self.scheduler:   # this is for batchwise lr update
-                 print('Entering steps:',self.scheduler)   
-                 self.scheduler.step() 
-              print('lr - self.scheduler.get_last_lr()[0]:', self.scheduler.get_last_lr()[0])        
-        
-              if self.scheduler:
-                 lr = self.scheduler.get_last_lr()[0]
+              if scheduler and not (isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau)):
+                 lr = self.scheduler.get_last_lr()[0]   # Won't work for ReduceLRonPlateau
               else:
-                 lr = self.optimizer.param_groups[0]['lr']                
-                
-              #if self.scheduler:   # this is for batchwise lr update
-              #   self.scheduler.step(self.metric)    
-                        
+                 lr = self.optimizer.param_groups[0]['lr']  
+  
               # Calculating accuracies
               labels_pred_max = labels_pred.argmax(dim = 1, keepdim = True) # Getting the index of max log probablity predicted by model
               correct         += labels_pred_max.eq(labels.view_as(labels_pred_max)).sum().item() # Getting count of correctly predicted
               total           += len(images) # Getting count of processed images
               train_acc_batch = (correct/total)*100            
-              lr_display = optimizer.param_groups[0]['lr']
-              pbar.set_description(desc=f'Train Loss = {loss.item()} Batch Id = {batch_idx} Train Accuracy = {train_acc_batch:0.2f} \
-                                   Learning Rate = {self.scheduler.get_last_lr()[0]:0.6f} LR = lr_display')
-                                        
+              pbar.set_description(desc=f'Train Loss = {loss.item()} Batch Id = {batch_idx} Train Acc = {train_acc_batch:0.2f} LR ={lr})                                       
      
           train_acc.append(train_acc_batch)  # To capture only final batch accuracy of an epoch
           train_losses.append(loss)          # To capture only final batch loss of an epoch
