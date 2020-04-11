@@ -299,10 +299,10 @@ class ResNet(nn.Module):
 def ResNet18():
     return ResNet(BasicBlock, [2,2,2,2])
 
- ## Modified ResNet 18 model for training CIFAR10. "_S11" simply stands for session 11 as was done as part of 11th session of EVA4 program
+## Modified ResNet model for training CIFAR10. "_S11" simply stands for session 11 as this belongs to 11th session of EVA4 program
 
 class BasicBlock_S11(nn.Module):
-    expansion = 1
+    expansion  = 1
 
     def __init__(self, in_planes, planes, stride=1):
         super(BasicBlock_S11, self).__init__()
@@ -327,21 +327,22 @@ class BasicBlock_S11(nn.Module):
 class ResNet_mod_S11(nn.Module):
     def __init__(self, block, num_blocks, num_classes=10):
         super(ResNet_mod_S11, self).__init__()
-        self.in_planes = 64
+        self.in_planes  = [128,512]
+        self.layer_call = 0
 
         self.conv1  = nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1, bias=False)
         self.bn1    = nn.BatchNorm2d(64)
-		self.conv2  = nn.Conv2d(3,128, kernel_size=3, stride=1, padding=1, bias=False)
-		self.pool1  = nn.MaxPool2d(2, 2)
-		self.bn2    = nn.BatchNorm2d(128)
+        self.conv2  = nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1, bias=False)
+        self.pool1  = nn.MaxPool2d(2, 2)
+        self.bn2    = nn.BatchNorm2d(128)
         self.layer1 = self._make_layer(block, 128, num_blocks[0], stride=1)
-		self.conv3  = nn.Conv2d(3,256, kernel_size=3, stride=1, padding=1, bias=False)
-		self.pool2  = nn.MaxPool2d(2, 2)
-		self.bn3    = nn.BatchNorm2d(256)
-		self.conv4  = nn.Conv2d(3,512, kernel_size=3, stride=1, padding=1, bias=False)
-		self.pool3  = nn.MaxPool2d(2, 2)
-		self.bn4    = nn.BatchNorm2d(512)		
-        self.layer2 = self._make_layer(block, 512, num_blocks[1], stride=2)
+        self.conv3  = nn.Conv2d(128,256, kernel_size=3, stride=1, padding=1, bias=False)
+        self.pool2  = nn.MaxPool2d(2, 2)
+        self.bn3    = nn.BatchNorm2d(256)
+        self.conv4  = nn.Conv2d(256,512, kernel_size=3, stride=1, padding=1, bias=False)
+        self.pool3  = nn.MaxPool2d(2, 2)
+        self.bn4    = nn.BatchNorm2d(512)
+        self.layer2 = self._make_layer(block, 512, num_blocks[1], stride=1)
         self.pool4  = nn.MaxPool2d(4, 4)
         self.fc     = nn.Conv2d(512*block.expansion, num_classes, kernel_size=1, stride = 1, padding=0, bias=False)
         
@@ -349,21 +350,22 @@ class ResNet_mod_S11(nn.Module):
         strides = [stride] + [1]*(num_blocks-1)
         layers = []
         for stride in strides:
-            layers.append(block(self.in_planes, planes, stride))
-            self.in_planes = planes * block.expansion
+            layers.append(block(self.in_planes[self.layer_call], planes, stride))
+            self.in_planes[self.layer_call] = planes * block.expansion
+        self.layer_call += 1    
         return nn.Sequential(*layers)
 
     def forward(self, x):
         out = F.relu(self.bn1(self.conv1(x)))
-		out = F.relu(self.bn2(self.pool1(self.conv2(x))))
+        out = F.relu(self.bn2(self.pool1(self.conv2(out))))
         out = self.layer1(out)
-		out = F.relu(self.bn3(self.pool2(self.conv3(x))))		
-		out = F.relu(self.bn4(self.pool3(self.conv4(x))))		
+        out = F.relu(self.bn3(self.pool2(self.conv3(out))))
+        out = F.relu(self.bn4(self.pool3(self.conv4(out))))
         out = self.layer2(out)
-		out = self.pool4(out)
+        out = self.pool4(out)
         out = self.fc(out)
         out = out.view(out.size(0), -1)
         return F.log_softmax(out, dim=-1)
             
 def ResNet_S11():
-    return ResNet_mod_S11(BasicBlock_S11, [2,2])
+    return ResNet_mod_S11(BasicBlock_S11, [1,1])
