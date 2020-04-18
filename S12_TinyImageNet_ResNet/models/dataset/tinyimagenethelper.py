@@ -73,8 +73,3 @@ class TinyImagenetHelper:
 
         print('Finished data loading, in {} seconds'.format(time.time() - t))
         return np.array(train_data), train_labels, np.array(test_data), test_labels
-
-    def get_classes(self, path):
-        id_dict = self.get_id_dictionary(path=path)
-        values, class_labels = self.get_class_to_id_dict(id_dict=id_dict, path=path)
-        return class_labels, id_dict 
