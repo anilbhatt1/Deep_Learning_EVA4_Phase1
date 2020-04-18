@@ -1,4 +1,7 @@
 ## ResNet 18 model for training tinyimagenet having 200 classes Using Softmax (softmax - given in model itself)
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
 
 class BasicBlock(nn.Module):
     expansion = 1
@@ -56,3 +59,6 @@ class ResNet(nn.Module):
         out = self.fc(out)
         out = out.view(out.size(0), -1)
         return F.log_softmax(out, dim=-1)
+    
+def ResNet_18():
+    return ResNet(BasicBlock, [2,2,2,2])
