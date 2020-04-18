@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
-import models.utils.Utils as Utils
+import models.utils.Utils as utils
 
 class PlotData:
 
@@ -24,6 +24,6 @@ class PlotData:
                 else:
                     class_name = values[labels[idx]]
                 ax.set_title(class_name.strip())
-            Utils.imshow(images[idx])
+            utils.Utils.imshow(images[idx])
 
         #plt.savefig("images/imagesfromdataset.png", bbox_inches='tight')
