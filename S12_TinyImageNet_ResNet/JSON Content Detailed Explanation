@@ -30,4 +30,10 @@ Region_attributes
     name -> name to indicate the image, eg: "name":"dog52"
     type -> type of the image like human, dog, etc. eg: "type":"dog"
     image_quality -> Giving more details on image. eg: "image_quality":{"good":true,"frontal":true,"good_illumination":true}	
-
+		     good : True means image quality is good
+		     frontal : True means image was shot at frontal pose
+		     good_illumination : True means image was shot with good illumination
+		     
+file_attributes -> Thse are file attributes, caption -> will have value if caption is given
+                                             public_domain -> Yes or No. No means not in public domain
+					     image_url -> will have url if available
