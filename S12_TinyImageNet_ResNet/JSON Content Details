@@ -1,0 +1,30 @@
+Shape Attributes
+	name -> Indicates the shape of polygon used. eg: 'rect'
+	x,y  -> Indicates starting coordinates of bounding box. eg: "x":247,"y":14
+	width, height -> Indicates total width and height of bounding box. eg: "width":502,"height":415
+	These are pictorially represented as below.
+	~----------------------------------~
+	|                                  |
+	|     (x,y)                        |             
+	|      *--------~                  |
+	|      |        | Height           |
+	|      |        |                  |
+	|      ~--------~                  | -> Image
+	|        Width    \                |
+    |                  \               |
+    |                   Bounding box   |
+	|                                  |
+    ~----------------------------------~
+	
+Region_attributes	
+    name -> name to indicate the image, eg: "name":"dog52"
+	type -> type of the image like human, dog, etc. eg: "type":"dog"
+	image_quality -> Giving more details on image. eg: "image_quality":{"good":true,"frontal":true,"good_illumination":true	
+
+"Dog52.jpg53299":						
+{"filename":"Dog52.jpg",
+ "size":53299,
+ "regions":
+ [{"shape_attributes":{"name":"rect","x":247,"y":14,"width":502,"height":415},
+ "region_attributes":{"name":"dog52","type":"dog","image_quality":{"good":true,"frontal":true,"good_illumination":true}}}],
+ "file_attributes":{"caption":"","public_domain":"no","image_url":""}}
