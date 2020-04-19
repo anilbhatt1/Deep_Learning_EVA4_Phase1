@@ -1,2 +1,3 @@
 - Train ResNet18 on Tiny ImageNet dataset (70/30 split) for 50 Epoch with a Target of 50%+ Validation Accuracy. 
-- Annotation of 50 images of dogs, finding the best total numbers of clusters. This is a precursor to prepare data for YOLO
+- Annotation of 50 images of dogs, JSON file corresponding to those annotations, details of JSON file fields
+- Finding the best total numbers of clusters for the annotations made. This is a precursor to prepare data for YOLO.
