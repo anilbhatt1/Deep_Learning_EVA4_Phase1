@@ -18,8 +18,8 @@ Shape Attributes
 	
 Region_attributes	
     name -> name to indicate the image, eg: "name":"dog52"
-	type -> type of the image like human, dog, etc. eg: "type":"dog"
-	image_quality -> Giving more details on image. eg: "image_quality":{"good":true,"frontal":true,"good_illumination":true	
+    type -> type of the image like human, dog, etc. eg: "type":"dog"
+    image_quality -> Giving more details on image. eg: "image_quality":{"good":true,"frontal":true,"good_illumination":true	
 
 "Dog52.jpg53299":						
 {"filename":"Dog52.jpg",
