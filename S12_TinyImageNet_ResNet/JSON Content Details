@@ -11,10 +11,10 @@ Shape Attributes
 	|      |        |                  |
 	|      ~--------~                  | -> Image
 	|        Width    \                |
-    |                  \               |
-    |                   Bounding box   |
+        |                  \               |
+        |                   Bounding box   |
 	|                                  |
-    ~----------------------------------~
+        ~----------------------------------~
 	
 Region_attributes	
     name -> name to indicate the image, eg: "name":"dog52"
